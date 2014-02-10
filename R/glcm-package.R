@@ -27,6 +27,7 @@ NULL
 #' @name glcm_test_raster
 #' @examples
 #' # The image was generated with the following code:
+#' require(raster)
 #' set.seed(0)
 #' test_matrix <- matrix(runif(100)*32, nrow=10)
 #' glcm_test_raster <- raster(test_matrix, crs='+init=EPSG:4326')

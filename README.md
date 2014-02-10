@@ -9,9 +9,9 @@ co-occurrence matrics (GLCMs) in R. The texture calculation is coded in C++
 to optimize computation time. The `glcm` function in the package can compute 
 the following texture statistics: mean (using either of two definitions), 
 variance (using either of two definitions), homogeneity, contrast, 
-dissimilarity, entropy, second_moment, and, correlation. The window size and 
-shift are user determined. See the help file for `glcm` (included in the 
-package) for details.
+dissimilarity, entropy, second_moment, and, correlation. The window size,
+shift, and grey-level quantization are user determined. See the help file for 
+`glcm` (included in the package) for details.
 
 ## Package Installation
 
