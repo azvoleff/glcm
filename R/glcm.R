@@ -53,6 +53,7 @@
 #' Wiley-Interscience, Hoboken, N.J pages 540-541, 563-566.
 #' @examples
 #' \dontrun{
+#' require(raster)
 #' textures <- glcm(raster(L5TSR_1986, layer=1))
 #' plot(textures)
 #' }
@@ -90,6 +91,9 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
 
     # Resample the image to the required number of grey levels
     if (class(x) == 'RasterLayer') {
+        if (!require(raster)) {
+            stop('"raster" package is required for handling raster objects')
+        }
         if (is.null(min_x)) min_x <- cellStats(x, 'min')
         if (is.null(max_x)) max_x <- cellStats(x, 'max')
         x_cut <- raster::cut(x, breaks=seq(min_x, max_x, length.out=(n_grey + 1)),

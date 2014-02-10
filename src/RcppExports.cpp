@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // calc_texture_full_image
 arma::cube calc_texture_full_image(arma::mat rast, int n_grey, arma::vec window_dims, arma::vec shift, Rcpp::CharacterVector statistics, std::string na_opt, double na_val);
-RcppExport SEXP teamr_calc_texture_full_image(SEXP rastSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
+RcppExport SEXP glcm_calc_texture_full_image(SEXP rastSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {

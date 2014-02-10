@@ -21,6 +21,6 @@
 #' @return a list of length equal to the length of the \code{statistics} input 
 #' parameter, containing the selected textures measures
 calc_texture_full_image <- function(rast, n_grey, window_dims, shift, statistics, na_opt, na_val) {
-    .Call('teamr_calc_texture_full_image', PACKAGE = 'teamr', rast, n_grey, window_dims, shift, statistics, na_opt, na_val)
+    .Call('glcm_calc_texture_full_image', PACKAGE = 'glcm', rast, n_grey, window_dims, shift, statistics, na_opt, na_val)
 }
 

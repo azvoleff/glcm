@@ -1,0 +1,4 @@
+export(glcm)
+import(Rcpp)
+import(RcppArmadillo)
+useDynLib(glcm)
