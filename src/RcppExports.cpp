@@ -6,9 +6,9 @@
 
 using namespace Rcpp;
 
-// calc_texture_full_image
-arma::cube calc_texture_full_image(arma::mat rast, int n_grey, arma::vec window_dims, arma::vec shift, Rcpp::CharacterVector statistics, std::string na_opt, double na_val);
-RcppExport SEXP glcm_calc_texture_full_image(SEXP rastSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
+// calc_texture
+arma::cube calc_texture(arma::mat rast, int n_grey, arma::vec window_dims, arma::vec shift, Rcpp::CharacterVector statistics, std::string na_opt, double na_val);
+RcppExport SEXP glcm_calc_texture(SEXP rastSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -20,7 +20,7 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type statistics(statisticsSEXP );
         Rcpp::traits::input_parameter< std::string >::type na_opt(na_optSEXP );
         Rcpp::traits::input_parameter< double >::type na_val(na_valSEXP );
-        arma::cube __result = calc_texture_full_image(rast, n_grey, window_dims, shift, statistics, na_opt, na_val);
+        arma::cube __result = calc_texture(rast, n_grey, window_dims, shift, statistics, na_opt, na_val);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

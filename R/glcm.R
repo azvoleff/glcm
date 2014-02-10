@@ -108,7 +108,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         stop('x must be a RasterLayer or two-dimensional matrix')
     }
 
-    textures <- calc_texture_full_image(x_cut, n_grey, window, shift, 
+    textures <- calc_texture(x_cut, n_grey, window, shift, 
                                         statistics, na_opt, na_val)
 
     if (class(x) == 'RasterLayer') {
@@ -121,7 +121,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     } else if ('matrix' %in% class(x)) {
         dimnames(textures) <- list(NULL, NULL, paste('glcm', statistics, sep='_'))
     } else {
-        stop('unknown object returned from calc_texture_full_image')
+        stop('unknown object returned from calc_texture')
     }
     if (scale_factor != 1) {
         textures <- textures * scale_factor

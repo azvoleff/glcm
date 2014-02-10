@@ -86,7 +86,7 @@ double text_correlation(mat pij, mat imat, mat jmat, double mean_haralick, doubl
 //' @return a list of length equal to the length of the \code{statistics} input 
 //' parameter, containing the selected textures measures
 // [[Rcpp::export]]
-arma::cube calc_texture_full_image(arma::mat rast,
+arma::cube calc_texture(arma::mat rast,
         int n_grey, arma::vec window_dims, arma::vec shift,
         Rcpp::CharacterVector statistics, std::string na_opt, double na_val) {
     mat imat(n_grey, n_grey);

@@ -1,9 +1,8 @@
-\name{calc_texture_full_image}
-\alias{calc_texture_full_image}
+\name{calc_texture}
+\alias{calc_texture}
 \title{Calculates a glcm texture for use in the glcm.R script}
 \usage{
-calc_texture_full_image(rast, n_grey, window_dims, shift, statistics, na_opt,
-  na_val)
+calc_texture(rast, n_grey, window_dims, shift, statistics, na_opt, na_val)
 }
 \arguments{
   \item{rast}{a matrix containing the pixels to be used in
