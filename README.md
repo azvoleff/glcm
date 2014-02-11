@@ -1,4 +1,4 @@
-# glcm: Calculate textures from grey-level co-occurrence matrices (GLCMs) in R
+# glcm
 
 [![Build Status](https://travis-ci.org/azvoleff/glcm.png)](https://travis-ci.org/azvoleff/glcm)
 
