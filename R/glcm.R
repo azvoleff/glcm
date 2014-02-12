@@ -1,13 +1,17 @@
 #' Image texture measures from grey-level co-occurrence matrices (GLCM)
 #'
+#' This function supports calculating texture statistics derived from 
+#' grey-level co-occurrence matrices (GLCMs) in R.
+#'
 #' @export
+#' @encoding UTF-8
 #' @import Rcpp RcppArmadillo
 #' @usage glcm(x, n_grey = 32, window = c(3, 3), shift = c(1, 1), statistics = 
 #' c("mean", "variance", "homogeneity", "contrast", "dissimilarity", "entropy", 
 #' "second_moment", "correlation"),
 #' min_x=NULL, max_x=NULL, na_opt="any", na_val=NA, scale_factor=1, 
 #' asinteger=FALSE)
-#' @param x a /code{RasterLayer} or matrix
+#' @param x a \code{RasterLayer} or \code{matrix}
 #' @param n_grey number of grey levels to use in texture calculation
 #' @param window the window size to consider for texture calculation as a two 
 #' element integer vector
@@ -36,21 +40,20 @@
 #' results to integers (see \code{asinteger} argument).
 #' @param asinteger whether to round results to nearest integer. Can be used to 
 #' save space by saving results as, for example, an 'INT2S' \code{raster}.
-#' @return A /code{RasterLayer} with the calculated requested GLCM texture 
-#' measures.
+#' @return A \code{RasterLayer} with the requested GLCM texture measures.
 #' @references Lu, D., and M. Batistella. 2005. Exploring TM image texture and 
-#' its relationships with biomass estimation in Rond\^{o}nia, Brazilian Amazon.  
-#' Acta Amazonica 35:249-257.
+#' its relationships with biomass estimation in Rondônia, Brazilian Amazon.  
+#' Acta Amazonica 35:249--257.
 #'
 #' Gonzalez, R. C. 2008. Digital image processing. 3rd ed. Prentice Hall, Upper 
-#' Saddle River, N.J, pages 830-836.
+#' Saddle River, N.J, pages 830--836.
 #'
 #' Haralick, R. M., K. Shanmugam, and I. Dinstein. 1973. Textural features for 
 #' image classification. IEEE Transactions on Systems, Man and Cybernetics 
-#' SMC-3:610-621.
+#' SMC-3:610--621.
 #'
 #' Pratt, W. K. 2007. Digital image processing: PIKS Scientific inside. 4th ed.
-#' Wiley-Interscience, Hoboken, N.J pages 540-541, 563-566.
+#' Wiley-Interscience, Hoboken, N.J pages 540--541, 563--566.
 #' @examples
 #' \dontrun{
 #' require(raster)
