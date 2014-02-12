@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{glcm}
 \alias{glcm}
 \title{Image texture measures from grey-level co-occurrence matrices (GLCM)}
@@ -9,7 +10,7 @@ min_x=NULL, max_x=NULL, na_opt="any", na_val=NA, scale_factor=1,
 asinteger=FALSE)
 }
 \arguments{
-  \item{x}{a /code{RasterLayer} or matrix}
+  \item{x}{a \code{RasterLayer} or \code{matrix}}
 
   \item{n_grey}{number of grey levels to use in texture
   calculation}
@@ -57,12 +58,13 @@ asinteger=FALSE)
   for example, an 'INT2S' \code{raster}.}
 }
 \value{
-A /code{RasterLayer} with the calculated requested GLCM
-texture measures.
+A \code{RasterLayer} with the requested GLCM texture
+measures.
 }
 \description{
-Image texture measures from grey-level co-occurrence
-matrices (GLCM)
+This function supports calculating texture statistics
+derived from grey-level co-occurrence matrices (GLCMs) in
+R.
 }
 \examples{
 \dontrun{
@@ -73,18 +75,19 @@ plot(textures)
 }
 \references{
 Lu, D., and M. Batistella. 2005. Exploring TM image texture
-and its relationships with biomass estimation in
-Rond\^{o}nia, Brazilian Amazon. Acta Amazonica 35:249-257.
+and its relationships with biomass estimation in Rondônia,
+Brazilian Amazon. Acta Amazonica 35:249--257.
 
 Gonzalez, R. C. 2008. Digital image processing. 3rd ed.
-Prentice Hall, Upper Saddle River, N.J, pages 830-836.
+Prentice Hall, Upper Saddle River, N.J, pages 830--836.
 
 Haralick, R. M., K. Shanmugam, and I. Dinstein. 1973.
 Textural features for image classification. IEEE
-Transactions on Systems, Man and Cybernetics SMC-3:610-621.
+Transactions on Systems, Man and Cybernetics
+SMC-3:610--621.
 
 Pratt, W. K. 2007. Digital image processing: PIKS
 Scientific inside. 4th ed. Wiley-Interscience, Hoboken, N.J
-pages 540-541, 563-566.
+pages 540--541, 563--566.
 }
 
