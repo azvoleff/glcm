@@ -16,10 +16,11 @@ asinteger=FALSE)
   calculation}
 
   \item{window}{the window size to consider for texture
-  calculation as a two element integer vector}
+  calculation as a two element integer vector (number of
+  rows, number of columns)}
 
-  \item{shift}{a 2 element integer vector giving the shift
-  (Q in Gonzalez and Woods, 2008).}
+  \item{shift}{a two element integer vector giving the
+  shift (Q in Gonzalez and Woods, 2008).}
 
   \item{statistics}{A list of GLCM texture measures to
   calculate.  Can include any (one or more) of the

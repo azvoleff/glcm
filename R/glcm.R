@@ -14,9 +14,9 @@
 #' @param x a \code{RasterLayer} or \code{matrix}
 #' @param n_grey number of grey levels to use in texture calculation
 #' @param window the window size to consider for texture calculation as a two 
-#' element integer vector
-#' @param shift a 2 element integer vector giving the shift (Q in Gonzalez and 
-#' Woods, 2008). 
+#' element integer vector (number of rows, number of columns)
+#' @param shift a two element integer vector giving the shift (Q in Gonzalez 
+#' and Woods, 2008).
 #' @param statistics A list of GLCM texture measures to calculate.  Can include 
 #' any (one or more) of the following: 'mean', 'mean_ENVI', 'variance', 
 #' 'variance_ENVI', 'homogeneity', 'contrast', 'dissimilarity', 'entropy', 
