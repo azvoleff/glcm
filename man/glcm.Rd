@@ -77,7 +77,7 @@ plot(textures)
 \references{
 Lu, D., and M. Batistella. 2005. Exploring TM image texture
 and its relationships with biomass estimation in Rondônia,
-Brazilian Amazon. Acta Amazonica 35:249--257.
+Brazilian Amazon.  Acta Amazonica 35:249--257.
 
 Gonzalez, R. C. 2008. Digital image processing. 3rd ed.
 Prentice Hall, Upper Saddle River, N.J, pages 830--836.

@@ -41,9 +41,10 @@
 #' @param asinteger whether to round results to nearest integer. Can be used to 
 #' save space by saving results as, for example, an 'INT2S' \code{raster}.
 #' @return A \code{RasterLayer} with the requested GLCM texture measures.
-#' @references Lu, D., and M. Batistella. 2005. Exploring TM image texture and 
-#' its relationships with biomass estimation in Rondônia, Brazilian Amazon.  
-#' Acta Amazonica 35:249--257.
+#' @references
+#' Lu, D., and M. Batistella. 2005. Exploring TM image texture and its 
+#' relationships with biomass estimation in Rondônia, Brazilian Amazon.  Acta 
+#' Amazonica 35:249--257.
 #'
 #' Gonzalez, R. C. 2008. Digital image processing. 3rd ed. Prentice Hall, Upper 
 #' Saddle River, N.J, pages 830--836.
