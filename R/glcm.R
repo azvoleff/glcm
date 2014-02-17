@@ -8,9 +8,8 @@
 #' @import Rcpp RcppArmadillo
 #' @usage glcm(x, n_grey = 32, window = c(3, 3), shift = c(1, 1), statistics = 
 #' c("mean", "variance", "homogeneity", "contrast", "dissimilarity", "entropy", 
-#' "second_moment", "correlation"),
-#' min_x=NULL, max_x=NULL, na_opt="any", na_val=NA, scale_factor=1, 
-#' asinteger=FALSE)
+#' "second_moment", "correlation"), min_x=NULL, max_x=NULL, na_opt="any", 
+#' na_val=NA, scale_factor=1, asinteger=FALSE)
 #' @param x a \code{RasterLayer} or \code{matrix}
 #' @param n_grey number of grey levels to use in texture calculation
 #' @param window the window size to consider for texture calculation as a two 
