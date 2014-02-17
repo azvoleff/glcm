@@ -1,8 +1,14 @@
+glcm 0.3
+========
+
+* Reformat tests for `testthat` >= 0.8.
+
 glcm 0.2
 ========
 
 *  Require Rcpp >= 0.11.0 (as Makevars and Makevars.win are no longer included 
    in package).
+
 *  Minor fixes to docs.
 
 glcm 0.1
