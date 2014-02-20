@@ -17,7 +17,6 @@ NULL
 #'
 #' @docType data
 #' @name L5TSR_1986
-#' @seealso L5TSR_2001
 NULL
 #' Randomly generated 100x100 test image
 #'

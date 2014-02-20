@@ -3,6 +3,8 @@ glcm 0.3
 
 * Reformat tests for `testthat` >= 0.8.
 
+* Various fixes to docs.
+
 glcm 0.2
 ========
 
