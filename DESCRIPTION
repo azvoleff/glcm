@@ -12,7 +12,7 @@ Imports:
     RcppArmadillo
 Suggests:
     raster,
-    testthat
+    testthat (>= 0.8.0)
 LinkingTo: Rcpp, RcppArmadillo
 Description: Enables calculation of image textures derived from grey-level
     co-occurrence matrices (GLCMs) in R. The texture calculation is coded in
