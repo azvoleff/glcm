@@ -15,7 +15,7 @@
 #' @param window the window size to consider for texture calculation as a two 
 #' element integer vector (number of rows, number of columns)
 #' @param shift a two element integer vector giving the shift (Q in Gonzalez 
-#' and Woods, 2008).
+#' and Woods, 2008), as (number of rows, number of columns)
 #' @param statistics A list of GLCM texture measures to calculate.  Can include 
 #' any (one or more) of the following: 'mean', 'mean_ENVI', 'variance', 
 #' 'variance_ENVI', 'homogeneity', 'contrast', 'dissimilarity', 'entropy', 
@@ -71,11 +71,11 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     if (length(shift) != 2) {
         stop('shift must be integer vector of length 2')
     }
-    if ((window[1] < 3) || (window[2] < 3)) {
-        stop('both elements of window must be  >= 3')
+    if ((window[1] + abs(shift[1])) > nrow(x)) {
+        stop("window row size + row shift must be less than nrow(x)")
     }
-    if ((window[1] %% 2 == 0) || (window[2] %% 2 == 0)) {
-        stop('both elements of window must be odd')
+    if ((window[2] + abs(shift[2])) > ncol(x)) {
+        stop("window column size + column shift must be less than ncol(x)")
     }
     if (class(statistics) != 'character') {
         stop('statistics must be a character vector')
@@ -91,7 +91,6 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     if (!(na_opt %in% c('any', 'center', 'ignore'))) {
         stop('na_opt must be one of "any", "center", or "ignore"')
     }
-
     # Resample the image to the required number of grey levels
     if (class(x) == 'RasterLayer') {
         if (!require(raster)) {

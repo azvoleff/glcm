@@ -19,7 +19,8 @@ na_val=NA, scale_factor=1, asinteger=FALSE)
   rows, number of columns)}
 
   \item{shift}{a two element integer vector giving the
-  shift (Q in Gonzalez and Woods, 2008).}
+  shift (Q in Gonzalez and Woods, 2008), as (number of
+  rows, number of columns)}
 
   \item{statistics}{A list of GLCM texture measures to
   calculate.  Can include any (one or more) of the
