@@ -111,8 +111,8 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         stop('x must be a RasterLayer or two-dimensional matrix')
     }
 
-    textures <- calc_texture(x_cut, n_grey, window, shift, 
-                                        statistics, na_opt, na_val)
+    textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
+                             na_val)
 
     if (class(x) == 'RasterLayer') {
         if (dim(textures)[3] > 1) {

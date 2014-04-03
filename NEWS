@@ -3,6 +3,15 @@ glcm 0.3
 
 * Reformat tests for `testthat` >= 0.8.
 
+* Fix handling of window sizes other than 3 x 3.
+
+* Rename test image to end in 3x3 (as it was run with a 3x3 window size).
+
+* Add another test image with textures run with a 7x11 window size (to enable 
+  further test cases).
+
+* Update website address.
+
 * Various fixes to docs.
 
 glcm 0.2
