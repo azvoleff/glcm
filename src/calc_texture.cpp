@@ -137,15 +137,23 @@ arma::cube calc_texture(arma::mat rast,
     imat = repmat(linspace<vec>(1, pij.n_rows, pij.n_rows), 1, pij.n_cols);
     jmat = trans(imat);
 
-    for(unsigned row=0; row < (rast.n_rows - abs(shift(0)) - ceil(window_dims(0)/2)); row++) {
-        // if (row %250 == 0 ) {
-        //     Rcpp::Rcout << "Row: " << row << std::endl;
-        // }
-        for(unsigned col=0; col < (rast.n_cols - abs(shift(1)) - ceil(window_dims(1)/2)); col++) {
+    for(unsigned row=0; row <= (rast.n_rows - abs(shift(0)) - window_dims(0)); row++) {
+        for(unsigned col=0; col <= (rast.n_cols - abs(shift(1)) - window_dims(1)); col++) {
+            // // Debugging code for tracking the upper left corner coordinate 
+            // // of base and offset matrices
+            // umat dbg_base(rast.n_rows, rast.n_cols, fill::zeros);
+            // for(unsigned i=0; i < dbg_base.n_elem; i++) {
+            //     dbg_base(i) = i;
+            // }
+            // dbg_base(row + base_ul(0), col + base_ul(1)) = 555;
+            // dbg_base(row + offset_ul(0), col + offset_ul(1)) = 999;
+            // dbg_base.print("ul coords (555 is base, 999 is offset):");
+
             base_window = rast.submat(row + base_ul(0),
                                       col + base_ul(1),
                                       row + base_ul(0) + window_dims(0) - 1,
                                       col + base_ul(1) + window_dims(1) - 1);
+
             offset_window = rast.submat(row + offset_ul(0),
                                         col + offset_ul(1),
                                         row + offset_ul(0) + window_dims(0) - 1,
@@ -232,7 +240,7 @@ arma::cube calc_texture(arma::mat rast,
 
     // Fill nan values on right border
     for(unsigned row=0; row < rast.n_rows; row++) {
-        for(unsigned col=(rast.n_cols - abs(shift(1)) - ceil(window_dims(1)/2)) + 1; col < rast.n_cols; col++) {
+        for(unsigned col=(rast.n_cols - abs(shift(1)) - 1); col < rast.n_cols; col++) {
             for(signed i=0; i < statistics.size(); i++) {
                 textures(row, col, i) = na_val;
             }
@@ -240,7 +248,7 @@ arma::cube calc_texture(arma::mat rast,
     }
 
     // Fill nan values on bottom border
-    for(unsigned row=(rast.n_rows - abs(shift(0)) - ceil(window_dims(0)/2)) + 1; row < rast.n_rows; row++) {
+    for(unsigned row=(rast.n_rows - abs(shift(0)) - 1); row < rast.n_rows; row++) {
         for(unsigned col=0; col < rast.n_cols; col++) {
             for(signed i=0; i < statistics.size(); i++) {
                 textures(row, col, i) = na_val;
