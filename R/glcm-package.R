@@ -32,27 +32,45 @@ NULL
 #' test_raster <- raster(test_matrix, crs='+init=EPSG:4326')
 #' test_raster <- cut(test_raster, seq(0, 32))
 NULL
-#' GLCM textures calculated in EXELIS ENVI
+#' GLCM textures calculated in EXELIS ENVI (for testing purposes)
 #'
 #' This is the output from running a "co-occurrence measures" calculation to 
-#' calculate GLCM textures in EXELIS ENVI from the \code{test_raster} 
-#' included in the \code{glcm} package. The following settings were used: 
-#' window size 3x3; co-occurrence shift 1 (x), 1 (y); greyscale quantization 
-#' levels 32; textures to compute: mean, variance, homogeneity, contrast, 
-#' dissimilarity, entropy, second moment, correlation.
+#' calculate GLCM textures in EXELIS ENVI from the \code{test_raster} included 
+#' in the \code{glcm} package. The following settings were used: window size 
+#' 3x3; co-occurrence shift 1 (x), 1 (y); greyscale quantization levels 32; 
+#' textures to compute: mean, variance, homogeneity, contrast, dissimilarity, 
+#' entropy, second moment, correlation.
 #' 
 #' @docType data
-#' @name test_raster_ENVI_textures_3x3
+#' @name expected_textures_3x3_1x1
+#' @seealso  \code{\link{expected_textures_5x7_2x3} 
+#' \code{\link{expected_textures_5x3_n1xn2} 
 NULL
-#' GLCM textures calculated in EXELIS ENVI
+#' GLCM textures calculated in EXELIS ENVI (for testing purposes)
 #'
 #' This is the output from running a "co-occurrence measures" calculation to 
-#' calculate GLCM textures in EXELIS ENVI from the \code{test_raster} 
-#' included in the \code{glcm} package. The following settings were used: 
-#' window size 5x7; co-occurrence shift 2 (x), 3 (y); greyscale quantization 
-#' levels 32; textures to compute: mean, variance, homogeneity, contrast, 
-#' dissimilarity, entropy, second moment, correlation.
+#' calculate GLCM textures in EXELIS ENVI from the \code{test_raster} included 
+#' in the \code{glcm} package. The following settings were used: window size 
+#' 5x7; co-occurrence shift 2 (x), 3 (y); greyscale quantization levels 32; 
+#' textures to compute: mean, variance, homogeneity, contrast, dissimilarity, 
+#' entropy, second moment, correlation.
 #' 
 #' @docType data
-#' @name test_raster_ENVI_textures_5x7
+#' @name expected_textures_5x7_2x3
+#' @seealso \code{\link{expected_textures_3x3_1x1} 
+#' \code{\link{expected_textures_5x3_n1xn2} 
+NULL
+#' GLCM textures calculated in EXELIS ENVI (for testing purposes)
+#'
+#' This is the output from running a "co-occurrence measures" calculation to 
+#' calculate GLCM textures in EXELIS ENVI from the \code{test_raster} included 
+#' in the \code{glcm} package. The following settings were used: window size 
+#' 5x3; co-occurrence shift -1 (x), -2 (y); greyscale quantization levels 32; 
+#' textures to compute: mean, variance, homogeneity, contrast, dissimilarity, 
+#' entropy, second moment, correlation.
+#' 
+#' @docType data
+#' @name expected_textures_5x3_n1xn2
+#' @seealso \code{\link{expected_textures_3x3_1x1} 
+#' \code{\link{expected_textures_5x7_2x3}
 NULL
