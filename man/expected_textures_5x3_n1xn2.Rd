@@ -7,10 +7,10 @@ This is the output from running a "co-occurrence measures"
 calculation to calculate GLCM textures in EXELIS ENVI from
 the \code{test_raster} included in the \code{glcm} package.
 The following settings were used: window size 5x3;
-co-occurrence shift -1 (x), -2 (y); greyscale quantization
-levels 32; textures to compute: mean, variance,
-homogeneity, contrast, dissimilarity, entropy, second
-moment, correlation.
+co-occurrence shift -1 row (y in ENVI), -2 columns (x in
+ENVI); greyscale quantization levels 32; textures to
+compute: mean, variance, homogeneity, contrast,
+dissimilarity, entropy, second moment, correlation.
 }
 \seealso{
 \code{\link{expected_textures_3x3_1x1}

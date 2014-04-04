@@ -23,11 +23,7 @@ na_val=NA, scale_factor=1, asinteger=FALSE)
   rows, number of columns)}
 
   \item{statistics}{A list of GLCM texture measures to
-  calculate.  Can include any (one or more) of the
-  following: 'mean', 'mean_ENVI', 'variance',
-  'variance_ENVI', 'homogeneity', 'contrast',
-  'dissimilarity', 'entropy', 'second_moment', and/or
-  'correlation'.}
+  calculate (see Details).}
 
   \item{min_x}{minimum value of input \code{RasterLayer}
   (optional, \code{glcm} will calculate if not supplied).
@@ -66,6 +62,15 @@ measures.
 This function supports calculating texture statistics
 derived from grey-level co-occurrence matrices (GLCMs) in
 R.
+}
+\details{
+The \code{statistics} parameter should be a list, and can
+include any (one or more) of the following: 'mean',
+'mean_ENVI', 'variance', 'variance_ENVI', 'homogeneity',
+'contrast', 'dissimilarity', 'entropy', 'second_moment',
+and/or 'correlation'. By default all of the statistics
+except for "mean_ENVI" and "variance_ENVI" will be returned
+.
 }
 \examples{
 \dontrun{
