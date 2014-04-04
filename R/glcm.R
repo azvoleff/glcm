@@ -75,9 +75,9 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     } else if ((window[1] %% 2 == 0) || (window[2] %% 2 == 0)) {
         stop('both elements of window must be odd')
     } else if ((window[1] + abs(shift[1])) > nrow(x)) {
-        stop("window[1] + shift[1] must be less than nrow(x)")
+        stop("window[1] + abs(shift[1]) must be less than nrow(x)")
     } else if ((window[2] + abs(shift[2])) > ncol(x)) {
-        stop("window[2] + shift[2] must be less than ncol(x)")
+        stop("window[2] + abs(shift[2]) must be less than ncol(x)")
     } else if (class(statistics) != 'character') {
         stop('statistics must be a character vector')
     }
