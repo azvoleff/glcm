@@ -43,8 +43,8 @@ NULL
 #' 
 #' @docType data
 #' @name expected_textures_3x3_1x1
-#' @seealso  \code{\link{expected_textures_5x7_2x3} 
-#' \code{\link{expected_textures_5x3_n1xn2} 
+#' @seealso  \code{\link{expected_textures_5x7_2x3}} 
+#' \code{\link{expected_textures_5x3_n1xn2}}
 NULL
 #' GLCM textures calculated in EXELIS ENVI (for testing purposes)
 #'
@@ -57,8 +57,8 @@ NULL
 #' 
 #' @docType data
 #' @name expected_textures_5x7_2x3
-#' @seealso \code{\link{expected_textures_3x3_1x1} 
-#' \code{\link{expected_textures_5x3_n1xn2} 
+#' @seealso \code{\link{expected_textures_3x3_1x1}} 
+#' \code{\link{expected_textures_5x3_n1xn2}}
 NULL
 #' GLCM textures calculated in EXELIS ENVI (for testing purposes)
 #'
@@ -71,6 +71,6 @@ NULL
 #' 
 #' @docType data
 #' @name expected_textures_5x3_n1xn2
-#' @seealso \code{\link{expected_textures_3x3_1x1} 
-#' \code{\link{expected_textures_5x7_2x3}
+#' @seealso \code{\link{expected_textures_3x3_1x1}} 
+#' \code{\link{expected_textures_5x7_2x3}}
 NULL

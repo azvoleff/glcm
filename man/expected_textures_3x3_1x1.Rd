@@ -13,7 +13,7 @@ homogeneity, contrast, dissimilarity, entropy, second
 moment, correlation.
 }
 \seealso{
-\code{\link{expected_textures_5x7_2x3}
-\code{\link{expected_textures_5x3_n1xn2}
+\code{\link{expected_textures_5x7_2x3}}
+\code{\link{expected_textures_5x3_n1xn2}}
 }
 
