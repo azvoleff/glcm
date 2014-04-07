@@ -42,7 +42,8 @@
 #' results to integers (see \code{asinteger} argument).
 #' @param asinteger whether to round results to nearest integer. Can be used to 
 #' save space by saving results as, for example, an 'INT2S' \code{raster}.
-#' @return A \code{RasterLayer} with the requested GLCM texture measures.
+#' @return A \code{RasterLayer} or \code{RasterStack} with the requested GLCM 
+#' texture measures.
 #' @references
 #' Lu, D., and M. Batistella. 2005. Exploring TM image texture and its 
 #' relationships with biomass estimation in Rondônia, Brazilian Amazon.  Acta 

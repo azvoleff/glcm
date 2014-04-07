@@ -55,8 +55,8 @@ na_val=NA, scale_factor=1, asinteger=FALSE)
   for example, an 'INT2S' \code{raster}.}
 }
 \value{
-A \code{RasterLayer} with the requested GLCM texture
-measures.
+A \code{RasterLayer} or \code{RasterStack} with the
+requested GLCM texture measures.
 }
 \description{
 This function supports calculating texture statistics
