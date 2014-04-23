@@ -10,7 +10,7 @@
 #' "mean_ENVI" and "variance_ENVI" will be returned .
 #' @export
 #' @encoding UTF-8
-#' @import Rcpp RcppArmadillo
+#' @import Rcpp
 #' @usage glcm(x, n_grey = 32, window = c(3, 3), shift = c(1, 1), statistics = 
 #' c("mean", "variance", "homogeneity", "contrast", "dissimilarity", "entropy", 
 #' "second_moment", "correlation"), min_x=NULL, max_x=NULL, na_opt="any", 
