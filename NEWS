@@ -1,3 +1,9 @@
+glcm 0.3.1
+==========
+
+* Remove RcppArmadillo from imports in glcm.R (only list it in linking-to) per 
+  CRAN request.
+
 glcm 0.3
 ========
 
