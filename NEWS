@@ -1,3 +1,7 @@
+glcm 0.3.2
+==========
+* Upgrade to roxygen2 > 4.0.0
+
 glcm 0.3.1
 ==========
 
