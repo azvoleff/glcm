@@ -1,7 +1,8 @@
 glcm 0.3.2
 ==========
 * Fix proj4string for example image.
-* Upgrade to roxygen2 > 4.0.0
+
+* Upgrade to roxygen2 > 4.0.0.
 
 glcm 0.3.1
 ==========
