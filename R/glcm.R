@@ -21,14 +21,14 @@
 #'
 #'  \item a matrix with two columns specifying, in rows, multiple (row, col) 
 #'  shifts over which to calculate the GLCM textures. For example:
-#'  \code{shift=matrix(1,1,-1,-1), byrow=TRUE, ncol=2)}
+#'  \code{shift=matrix(c(1,1,-1,-1), byrow=TRUE, ncol=2)}
 #' }
 #'
 #' If multiple shifts are supplied, \code{glcm} will calculate each texture 
 #' statistic using all the specified shifts, and return the mean value of the 
 #' texture for each pixel. To calculate GLCM textures over "all directions" (in 
 #' the terminology of commonly used remote sensing software), use: 
-#' \code{shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)}. This will calculate the 
+#' \code{shift=list(c(0,1), c(1,1), c(1,0), c(1,-1))}. This will calculate the 
 #' average GLCM texture using shifts of 0 degrees, 45 degrees, 
 #' 90 degrees, and 135 degrees.
 #' @export
