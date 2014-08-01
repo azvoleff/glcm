@@ -1,13 +1,36 @@
 #' Image texture measures from grey-level co-occurrence matrices (GLCM)
 #'
 #' This function supports calculating texture statistics derived from 
-#' grey-level co-occurrence matrices (GLCMs) in R.
+#' grey-level co-occurrence matrices (GLCMs) in R. The default textures are 
+#' calculated using a 90 degree shift. See Details for other options.
 #'
 #' The \code{statistics} parameter should be a list, and can include any (one 
 #' or more) of the following: 'mean', 'mean_ENVI', 'variance', 'variance_ENVI', 
 #' 'homogeneity', 'contrast', 'dissimilarity', 'entropy', 'second_moment', 
 #' and/or 'correlation'. By default all of the statistics except for 
 #' "mean_ENVI" and "variance_ENVI" will be returned .
+#'
+#' \code{shift} can be one of:
+#' \enumerate{
+#'   \item a two element integer vector giving the shift (Q in Gonzalez and 
+#'   Woods, 2008), as (number of rows, number of columns).
+#'
+#'  \item a list of integer vectors of length 2 specifying multiple (row, col) 
+#'  shifts over which to calculate the GLCM textures. For example:
+#'  \code{shift=list(c(1,1), c(-1,-1))}
+#'
+#'  \item a matrix with two columns specifying, in rows, multiple (row, col) 
+#'  shifts over which to calculate the GLCM textures. For example:
+#'  \code{shift=matrix(1,1,-1,-1), byrow=TRUE, ncol=2)}
+#' }
+#'
+#' If multiple shifts are supplied, \code{glcm} will calculate each texture 
+#' statistic using all the specified shifts, and return the mean value of the 
+#' texture for each pixel. To calculate GLCM textures over "all directions" (in 
+#' the terminology of commonly used remote sensing software), use: 
+#' \code{shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)}. This will calculate the 
+#' average GLCM texture using shifts of 0 degrees, 45 degrees, 
+#' 90 degrees, and 135 degrees.
 #' @export
 #' @encoding UTF-8
 #' @import Rcpp
@@ -19,8 +42,7 @@
 #' @param n_grey number of grey levels to use in texture calculation
 #' @param window the window size to consider for texture calculation as a two 
 #' element integer vector (number of rows, number of columns)
-#' @param shift a two element integer vector giving the shift (Q in Gonzalez 
-#' and Woods, 2008), as (number of rows, number of columns)
+#' @param shift a list or matrix specifying the shift to use. See Details.
 #' @param statistics A list of GLCM texture measures to calculate (see 
 #' Details).
 #' @param min_x minimum value of input \code{RasterLayer} (optional, 
@@ -61,24 +83,40 @@
 #' @examples
 #' \dontrun{
 #' require(raster)
-#' textures <- glcm(raster(L5TSR_1986, layer=1))
-#' plot(textures)
+#' # Calculate GLCM textures using default 90 degree shift
+#' textures_shift1 <- glcm(raster(L5TSR_1986, layer=1))
+#' plot(textures_shift1)
+#'
+#' # Calculate GLCM textures over all directions
+#' textures_all_dir <- glcm(raster(L5TSR_1986, layer=1),
+#'                          shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)))
+#' plot(textures_all_dir)
 #' }
 glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
                  statistics=c('mean', 'variance', 'homogeneity', 'contrast', 
                               'dissimilarity', 'entropy', 'second_moment', 
                               'correlation'), min_x=NULL, max_x=NULL, 
                  na_opt='any', na_val=NA, scale_factor=1, asinteger=FALSE) {
-    if (length(window) != 2) {
+    if (length(window) != 2 || !all(floor(window) == window)) {
         stop('window must be integer vector of length 2')
-    } else if (length(shift) != 2) {
-        stop('shift must be integer vector of length 2')
-    } else if ((window[1] %% 2 == 0) || (window[2] %% 2 == 0)) {
+    }
+    # Convert a length 2 vector to a 2 element list (for
+    # backwards compatibility)
+    if ((length(shift) == 2) && is.numeric(shift)) shift <- list(shift)
+    if ((!(is.vector(shift) && all(lapply(shift, length) == 2)) &&
+         !(is.matrix(shift) && ncol(shift) == 2)) ||
+        !(all(floor(unlist(shift)) == unlist(shift)))) {
+        stop('shift must be a list of length 2 integer vectors, or a 2 column matrix')
+    }
+    if (!is.matrix(shift)) {
+        shift <- matrix(unlist(shift), ncol=2, byrow=TRUE)
+    }
+    if ((window[1] %% 2 == 0) || (window[2] %% 2 == 0)) {
         stop('both elements of window must be odd')
-    } else if ((window[1] + abs(shift[1])) > nrow(x)) {
-        stop("window[1] + abs(shift[1]) must be less than nrow(x)")
-    } else if ((window[2] + abs(shift[2])) > ncol(x)) {
-        stop("window[2] + abs(shift[2]) must be less than ncol(x)")
+    } else if ((window[1] + abs(max(shift[, 1]))) > nrow(x)) {
+        stop("window[1] + the maximum x shift value must be less than nrow(x)")
+    } else if ((window[2] + abs(max(shift[, 2]))) > ncol(x)) {
+        stop("window[2] + the maximum y shift value must be less than ncol(x)")
     } else if (class(statistics) != 'character') {
         stop('statistics must be a character vector')
     }

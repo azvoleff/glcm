@@ -17,8 +17,7 @@ na_val=NA, scale_factor=1, asinteger=FALSE)
 \item{window}{the window size to consider for texture calculation as a two
 element integer vector (number of rows, number of columns)}
 
-\item{shift}{a two element integer vector giving the shift (Q in Gonzalez
-and Woods, 2008), as (number of rows, number of columns)}
+\item{shift}{a list or matrix specifying the shift to use. See Details.}
 
 \item{statistics}{A list of GLCM texture measures to calculate (see
 Details).}
@@ -54,7 +53,8 @@ texture measures.
 }
 \description{
 This function supports calculating texture statistics derived from
-grey-level co-occurrence matrices (GLCMs) in R.
+grey-level co-occurrence matrices (GLCMs) in R. The default textures are
+calculated using a 90 degree shift. See Details for other options.
 }
 \details{
 The \code{statistics} parameter should be a list, and can include any (one
@@ -62,12 +62,40 @@ or more) of the following: 'mean', 'mean_ENVI', 'variance', 'variance_ENVI',
 'homogeneity', 'contrast', 'dissimilarity', 'entropy', 'second_moment',
 and/or 'correlation'. By default all of the statistics except for
 "mean_ENVI" and "variance_ENVI" will be returned .
+
+\code{shift} can be one of:
+\enumerate{
+  \item a two element integer vector giving the shift (Q in Gonzalez and
+  Woods, 2008), as (number of rows, number of columns).
+
+\item a list of integer vectors of length 2 specifying multiple (row, col)
+ shifts over which to calculate the GLCM textures. For example:
+ \code{shift=list(c(1,1), c(-1,-1))}
+
+\item a matrix with two columns specifying, in rows, multiple (row, col)
+ shifts over which to calculate the GLCM textures. For example:
+ \code{shift=matrix(1,1,-1,-1), byrow=TRUE, ncol=2)}
+}
+
+If multiple shifts are supplied, \code{glcm} will calculate each texture
+statistic using all the specified shifts, and return the mean value of the
+texture for each pixel. To calculate GLCM textures over "all directions" (in
+the terminology of commonly used remote sensing software), use:
+\code{shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)}. This will calculate the
+average GLCM texture using shifts of 0 degrees, 45 degrees,
+90 degrees, and 135 degrees.
 }
 \examples{
 \dontrun{
 require(raster)
-textures <- glcm(raster(L5TSR_1986, layer=1))
-plot(textures)
+# Calculate GLCM textures using default 90 degree shift
+textures_shift1 <- glcm(raster(L5TSR_1986, layer=1))
+plot(textures_shift1)
+
+# Calculate GLCM textures over all directions
+textures_all_dir <- glcm(raster(L5TSR_1986, layer=1),
+                         shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)))
+plot(textures_all_dir)
 }
 }
 \references{

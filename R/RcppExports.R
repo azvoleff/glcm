@@ -11,8 +11,9 @@
 #' @param n_grey number of grey levels to use in texture calculation
 #' @param window_dims 2 element list with row and column dimensions of the
 #' texture window
-#' @param shift a length 2 vector with the number of cells to shift when
-#' computing co-ocurrency matrices
+#' @param shift a matrix where each row gives an (x, y) shift to use when 
+#' computing co-occurrency matrices. Textures will be calculated for each 
+#' shift, and the average over all shifts will be returned.
 #' @param statistics a list of strings naming the texture statistics to 
 #' calculate
 #' @param na_opt one of "ignore", "center", or "any"
