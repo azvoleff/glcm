@@ -97,6 +97,11 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
                               'dissimilarity', 'entropy', 'second_moment', 
                               'correlation'), min_x=NULL, max_x=NULL, 
                  na_opt='any', na_val=NA, scale_factor=1, asinteger=FALSE) {
+    if (!(class(x) == 'RasterLayer') &&
+        !(('matrix' %in% class(x)) && (length(dim(x)) != 2))) {
+        stop('x must be a RasterLayer or two-dimensional matrix')
+    }
+
     if (length(window) != 2 || !all(floor(window) == window)) {
         stop('window must be integer vector of length 2')
     }
@@ -141,7 +146,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         x_cut <- raster::cut(x, breaks=seq(min_x, max_x, length.out=(n_grey + 1)),
                              include.lowest=TRUE, right=FALSE)
         x_cut <- raster::as.matrix(x_cut)
-    } else if ('matrix' %in% class(x) && (length(dim(x)) == 2)) {
+    } else if ('matrix' %in% class(x)) {
         if (is.null(min_x)) min_x <- min(x)
         if (is.null(max_x)) max_x <- max(x)
         x_cut <- matrix(findInterval(x, seq(min_x, max_x, length.out=(n_grey + 1)), all.inside=TRUE),
