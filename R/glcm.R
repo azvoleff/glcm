@@ -146,19 +146,8 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         x_cut <- raster::cut(x, breaks=seq(min_x, max_x, length.out=(n_grey + 1)),
                              include.lowest=TRUE, right=FALSE)
         x_cut <- raster::as.matrix(x_cut)
-    } else if ('matrix' %in% class(x)) {
-        if (is.null(min_x)) min_x <- min(x)
-        if (is.null(max_x)) max_x <- max(x)
-        x_cut <- matrix(findInterval(x, seq(min_x, max_x, length.out=(n_grey + 1)), all.inside=TRUE),
-                          nrow=nrow(x))
-    } else {
-        stop('x must be a RasterLayer or two-dimensional matrix')
-    }
-
-    textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
-                             na_val)
-
-    if (class(x) == 'RasterLayer') {
+        textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
+                                 na_val)
         if (dim(textures)[3] > 1) {
             textures <- stack(apply(textures, 3, raster, template=x))
         } else {
@@ -166,15 +155,24 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         }
         names(textures) <- paste('glcm', statistics, sep='_')
     } else if ('matrix' %in% class(x)) {
+        if (is.null(min_x)) min_x <- min(x)
+        if (is.null(max_x)) max_x <- max(x)
+        x_cut <- matrix(findInterval(x, seq(min_x, max_x, length.out=(n_grey + 1)), all.inside=TRUE),
+                          nrow=nrow(x))
+        textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
+                                 na_val)
         dimnames(textures) <- list(NULL, NULL, paste('glcm', statistics, sep='_'))
     } else {
-        stop('unknown object returned from calc_texture')
+        stop('x must be a RasterLayer or two-dimensional matrix')
     }
+
     if (scale_factor != 1) {
         textures <- textures * scale_factor
     }
+
     if (asinteger) {
         textures <- round(textures)
     }
+
     return(textures)
 }
