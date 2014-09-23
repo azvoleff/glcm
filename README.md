@@ -40,6 +40,7 @@ using the
 package by Hadley Wickham. After installing `devtools` from CRAN, type:
 
 ```R
+library(devtools)
 install_github('azvoleff/glcm')
 ```
 
