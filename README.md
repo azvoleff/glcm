@@ -15,6 +15,11 @@ shift, and grey-level quantization are user determined. See the help file for
 
 ## Package Installation
 
+**NOTE: If you are installing on Windows, you will need to install the 
+appropriate version of [Rtools](http://cran.r-project.org/bin/windows/Rtools/) 
+for your version of R (as `glcm` contains C++ code) before you follow the 
+below steps.**
+
 The easiest way to install the (development version) of the `glcm` package is 
 using the 
 [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html) 
@@ -25,10 +30,6 @@ install_github('glcm', username='azvoleff')
 ```
 
 at the R prompt to install `glcm`.
-
-If you are installing on Windows, you will first need to install the 
-appropriate version of [Rtools](http://cran.r-project.org/bin/windows/Rtools/) 
-for your version of R (as `glcm` contains C++ code).
 
 ## Installing `glcm` Development Version
 
