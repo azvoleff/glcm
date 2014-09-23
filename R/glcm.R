@@ -141,7 +141,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         stop("window[1] + the maximum x shift value must be less than nrow(x)")
     } else if ((window[2] + abs(max(shift[, 2]))) > ncol(x)) {
         stop("window[2] + the maximum y shift value must be less than ncol(x)")
-    } else if (class(statistics) != 'character') {
+    } else if (!inherits(statistics, 'character')) {
         stop('statistics must be a character vector')
     }
     avail_stats <- c('mean', 'mean_ENVI', 'variance', 'variance_ENVI', 
@@ -156,9 +156,9 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         stop('na_opt must be "any", "center", or "ignore"')
     }
     # Resample the image to the required number of grey levels
-    if (class(x) == 'RasterLayer') {
+    if (inherits(x, 'RasterLayer')) {
         if (!require(raster)) {
-            stop('raster package is required for handling raster objects')
+            stop('"raster" package is required for handling raster objects')
         }
         if (is.null(min_x)) min_x <- cellStats(x, 'min')
         if (is.null(max_x)) max_x <- cellStats(x, 'max')
