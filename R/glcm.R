@@ -1,3 +1,22 @@
+# Function to calculate edge for glcm when processing block by block
+calc_glcm_edge <- function(shift, window) {
+    if ((length(shift) == 2) && is.numeric(shift)) shift <- list(shift)
+    if ((!(is.vector(shift) && all(lapply(shift, length) == 2)) &&
+         !(is.matrix(shift) && ncol(shift) == 2)) ||
+        !(all(floor(unlist(shift)) == unlist(shift)))) {
+        stop('shift must be a list of length 2 integer vectors, or a 2 column matrix')
+    }
+    if (!is.matrix(shift)) {
+        shift <- matrix(unlist(shift), ncol=2, byrow=TRUE)
+    }
+    neg_shifts <- shift[, 2][shift[, 2] < 0]
+    pos_shifts <- shift[, 2][shift[, 2] > 0]
+    if (length(neg_shifts) == 0) neg_shifts <- 0
+    if (length(pos_shifts) == 0) pos_shifts <- 0
+    return(c(abs(min(neg_shifts)) + ceiling(window[2] / 2) - 1,
+             abs(max(pos_shifts)) + ceiling(window[2] / 2) - 1))
+}
+
 #' Image texture measures from grey-level co-occurrence matrices (GLCM)
 #'
 #' This function supports calculating texture statistics derived from 
@@ -97,8 +116,8 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
                               'dissimilarity', 'entropy', 'second_moment', 
                               'correlation'), min_x=NULL, max_x=NULL, 
                  na_opt='any', na_val=NA, scale_factor=1, asinteger=FALSE) {
-    if (!(class(x) == 'RasterLayer') &&
-        !(('matrix' %in% class(x)) && (length(dim(x)) != 2))) {
+    if (!inherits(x, 'RasterLayer') &&
+        !(inherits(x, 'matrix') && (length(dim(x)) == 2))) {
         stop('x must be a RasterLayer or two-dimensional matrix')
     }
 
@@ -143,22 +162,110 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         }
         if (is.null(min_x)) min_x <- cellStats(x, 'min')
         if (is.null(max_x)) max_x <- cellStats(x, 'max')
-        x_cut <- raster::cut(x, breaks=seq(min_x, max_x, length.out=(n_grey + 1)),
-                             include.lowest=TRUE, right=FALSE)
-        x_cut <- raster::as.matrix(x_cut)
-        textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
-                                 na_val)
-        if (dim(textures)[3] > 1) {
-            textures <- stack(apply(textures, 3, raster, template=x))
+
+        if (canProcessInMemory(x, length(statistics) + 2)) {
+            x_cut <- raster::cut(x, breaks=seq(min_x, max_x,
+                                               length.out=(n_grey + 1)),
+                                 include.lowest=TRUE, right=FALSE)
+            x_cut <- raster::as.matrix(x_cut)
+            textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
+                                     na_val)
         } else {
-            textures <- raster(textures[, , 1], template=x)
+            edge <- calc_glcm_edge(shift, window)
+    
+            bs <- blockSize(x, minrows=(window[1] + edge[1] + edge[2]), minblocks=1)
+            n_blocks <- bs$n
+
+            # bs_mod is the blocksize that will contain blocks that have been expanded 
+            # to avoid edge effects
+            bs_mod <- bs
+            if (bs_mod$n > 1) {
+                # Expand blocks to account for edge effects on the top:
+                bs_mod$row[2:n_blocks] <- bs_mod$row[2:n_blocks] - edge[1]
+                # Need to read additional rows from these blocks to avoid an offset
+                bs_mod$nrows[2:n_blocks] <- bs_mod$nrows[2:n_blocks] + edge[1]
+
+                # Read additional bottom rows to account for edge effects on the bottom:
+                bs_mod$nrows[1:(n_blocks - 1)] <- bs_mod$nrows[1:(n_blocks - 1)] + edge[2]
+            }
+
+            # TODO: Need to detect this and fix it automatically
+            if (any(bs_mod$row < 1)) {
+                stop('too many blocks to read without edge effects - try increasing chunksize')
+            } else if (any((bs_mod$nrows + bs_mod$row - 1) > nrow(x))) {
+                stop('too many blocks to read without edge effects - try increasing chunksize')
+            }
+            
+            started_writes <- FALSE
+            for (block_num in 1:bs$n) {
+                this_block <- getValues(x, row=bs_mod$row[block_num], 
+                                        nrows=bs_mod$nrows[block_num],
+                                        format='matrix')
+                x_cut <- matrix(findInterval(this_block, seq(min_x, max_x, length.out=(n_grey + 1)),
+                                             all.inside=TRUE), nrow=nrow(this_block))
+                out_block <- calc_texture(x_cut, n_grey, window, shift, 
+                                          statistics, na_opt, na_val)
+                layer_names <- dimnames(out_block)[[3]]
+                # Drop the padding added to top to avoid edge effects, unless we are 
+                # really on the top of the image, where top edge effects cannot be 
+                # avoided
+                if ((block_num != 1) && (edge[1] > 0)) {
+                    out_block <- out_block[-(1:edge[1]), , ]
+                    # The below line is needed to maintain a 3 dimensional array, 
+                    # even when an n x m x 1 array is returned from 
+                    # calc_texture_full_image because a single statistic was chosen. 
+                    # Without the below line, removing a row will coerce the 3d array 
+                    # to a 2d matrix, and the bottom padding removal will fail as it 
+                    # references a 3d matrix).
+                    if (length(dim(out_block)) < 3) dim(out_block) <- c(dim(out_block), 1)
+                }
+                # Drop the padding added to bottom to avoid edge effects, unless we are 
+                # really on the bottom of the image, where bottom edge effects cannot 
+                # be avoided
+                if ((block_num != n_blocks) && (edge[2] > 0)) {
+                    out_block <- out_block[-((nrow(out_block)-edge[2]+1):nrow(out_block)), , ]
+                    if (length(dim(out_block)) < 3) dim(out_block) <- c(dim(out_block), 1)
+                }
+                if (!started_writes) {
+                    # Setup an output raster with number of layers equal to the number 
+                    # of layers in out_block, and extent/resolution equal to extent and 
+                    # resolution of x
+                    if (dim(out_block)[3] == 1) {
+                        textures <- raster(x)
+                    } else {
+                        textures <- brick(stack(rep(c(x), dim(out_block)[3])), values=FALSE)
+                    }
+                    textures <- writeStart(textures, filename=rasterTmpFile())
+                    names(textures) <- layer_names
+                    started_writes <- TRUE
+                }
+                # To write to a RasterBrick the out_block needs to be structured as 
+                # a 2-d matrix with bands in columns and columns as row-major vectors
+                if (dim(out_block)[3] == 1) {
+                    out_block <- aperm(out_block, c(3, 2, 1))
+                    out_block <- matrix(out_block, ncol=nrow(out_block))
+                } else {
+                    out_block <- aperm(out_block, c(3, 2, 1))
+                    out_block <- matrix(out_block, ncol=nrow(out_block), byrow=TRUE)
+                }
+                textures <- writeValues(textures, out_block, bs$row[block_num])
+            }
+            textures <- writeStop(textures)
+        }
+        if (!inherits(textures, c('RasterLayer', 'RasterStack', 
+                                  'RasterBrick'))) {
+            if (dim(textures)[3] > 1) {
+                textures <- stack(apply(textures, 3, raster, template=x))
+            } else {
+                textures <- raster(textures[, , 1], template=x)
+            }
         }
         names(textures) <- paste('glcm', statistics, sep='_')
-    } else if ('matrix' %in% class(x)) {
+    } else if (inherits(x, 'matrix')) {
         if (is.null(min_x)) min_x <- min(x)
         if (is.null(max_x)) max_x <- max(x)
-        x_cut <- matrix(findInterval(x, seq(min_x, max_x, length.out=(n_grey + 1)), all.inside=TRUE),
-                          nrow=nrow(x))
+        x_cut <- matrix(findInterval(x, seq(min_x, max_x, length.out=(n_grey + 1)),
+                                     all.inside=TRUE), nrow=nrow(x))
         textures <- calc_texture(x_cut, n_grey, window, shift, statistics, na_opt, 
                                  na_val)
         dimnames(textures) <- list(NULL, NULL, paste('glcm', statistics, sep='_'))

@@ -2,6 +2,9 @@ context("GLCM textures")
 
 suppressMessages(library(raster))
 
+# First run tests tests without block-by-block processing
+rasterOptions(todisk=FALSE)
+
 # Make a function to get 2d matrix from 3d matrix returned by glcm
 get_pkg_glcm_texture <- function(statistic, window, shift) {
     if (length(statistic) != 1) {
@@ -112,5 +115,64 @@ test_that("GLCM scaling works correctly when run with scaling and rounding", {
     expect_equal(glcm(test_raster, 32, c(3, 3), c(1, 1), 'correlation', 
                       asinteger=TRUE, scale_factor=1000, na_val=0),
                  expected=glcm_corr_int,
+                 tolerance=.000001)
+})
+
+# Re-run glcm tests with block-by-block processing
+rasterOptions(todisk=TRUE)
+
+# Test all statistics that are available in EXELIS ENVI match the textures 
+# output by pkg
+test_that("glcm on 3x3 window with 1x1 shift works", {
+    expect_equal(get_pkg_glcm_texture('mean_ENVI', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$mean_ENVI),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('variance_ENVI', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$variance_ENVI),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('homogeneity', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$homogeneity),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('contrast', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$contrast),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('dissimilarity', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$dissimilarity),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('entropy', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$entropy),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('second_moment', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$second_moment),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('correlation', c(3, 3), c(1, 1)),
+                 expected=getValues(expected_textures_3x3_1x1$correlation),
+                 tolerance=.000001)
+})
+
+test_that("glcm on 5x7 window with 2x3 shift works", {
+    expect_equal(get_pkg_glcm_texture('mean_ENVI', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$mean_ENVI),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('variance_ENVI', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$variance_ENVI),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('homogeneity', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$homogeneity),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('contrast', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$contrast),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('dissimilarity', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$dissimilarity),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('entropy', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$entropy),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('second_moment', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$second_moment),
+                 tolerance=.000001)
+    expect_equal(get_pkg_glcm_texture('correlation', c(5, 7), c(2, 3)),
+                 expected=getValues(expected_textures_5x7_2x3$correlation),
                  tolerance=.000001)
 })
