@@ -15,7 +15,9 @@ shift, and grey-level quantization are user determined. See the help file for
 
 ## Package Installation
 
-To install the latest stable version of `glcm` from CRAN, fire up R and run:
+To install the latest stable version of `glcm` from 
+[CRAN](http://cran.r-project.org/web/packages/glcm/index.html), fire up R and 
+run:
 
 ```R
 install.packages('glcm')
