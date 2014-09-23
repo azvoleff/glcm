@@ -30,6 +30,18 @@ If you are installing on Windows, you will first need to install the
 appropriate version of [Rtools](http://cran.r-project.org/bin/windows/Rtools/) 
 for your version of R (as `glcm` contains C++ code).
 
+## Installing `glcm` Development Version
+
+If you want the very latest version of `glcm`, you can install the 
+development version. Be aware this version might not install as it is not as 
+well tested as the stable version. To install from the `glcm` development 
+branch, run:
+
+```R
+library(devtools)
+install_github('azvoleff/glcm', ref="development")
+```
+
 ## Author Contact Information
 
 [Alex Zvoleff](mailto:azvoleff@conservation.org)  
