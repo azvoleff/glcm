@@ -14,7 +14,7 @@ Suggests:
     testthat (>= 0.8.0)
 LinkingTo: Rcpp, RcppArmadillo
 Description: Enables calculation of image textures derived from grey-level
-    co-occurrence matrices (GLCMs) in R. Supports processing images that cannot 
+    co-occurrence matrices (GLCMs) in R. Supports processing images that cannot
     fit in memory.
 License: GPL (>= 3)
 URL: http://www.azvoleff.com/glcm

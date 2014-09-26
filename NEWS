@@ -3,7 +3,8 @@ glcm 1.0
 * Support calculation of average textures over multiple shifts (glcm in "all 
   directions". Thanks to Matthias Weigand for testing.
 
-* Automatically process rasters block-by-block when cannot process in memory.
+* Automatically process rasters block-by-block when cannot process in memory.  
+  Thanks to Santosh Bhandari for testing.
 
 * Upgrade to roxygen2 > 4.0.2.
 
