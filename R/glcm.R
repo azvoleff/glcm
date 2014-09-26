@@ -157,9 +157,6 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     }
     # Resample the image to the required number of grey levels
     if (inherits(x, 'RasterLayer')) {
-        if (!requireNamespace("raster", quietly=TRUE)) {
-            stop('"raster" package is required for handling raster objects')
-        }
         if (is.null(min_x)) min_x <- raster::cellStats(x, 'min')
         if (is.null(max_x)) max_x <- raster::cellStats(x, 'max')
 
