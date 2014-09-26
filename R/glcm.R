@@ -157,13 +157,13 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     }
     # Resample the image to the required number of grey levels
     if (inherits(x, 'RasterLayer')) {
-        if (!require(raster)) {
+        if (!requireNamespace("raster", quietly=TRUE)) {
             stop('"raster" package is required for handling raster objects')
         }
-        if (is.null(min_x)) min_x <- cellStats(x, 'min')
-        if (is.null(max_x)) max_x <- cellStats(x, 'max')
+        if (is.null(min_x)) min_x <- raster::cellStats(x, 'min')
+        if (is.null(max_x)) max_x <- raster::cellStats(x, 'max')
 
-        if (canProcessInMemory(x, length(statistics) + 2)) {
+        if (raster::canProcessInMemory(x, length(statistics) + 2)) {
             x_cut <- raster::cut(x, breaks=seq(min_x, max_x,
                                                length.out=(n_grey + 1)),
                                  include.lowest=TRUE, right=FALSE)
@@ -173,7 +173,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         } else {
             edge <- calc_glcm_edge(shift, window)
     
-            bs <- blockSize(x, minrows=(window[1] + edge[1] + edge[2]), minblocks=1)
+            bs <- raster::blockSize(x, minrows=(window[1] + edge[1] + edge[2]), minblocks=1)
             n_blocks <- bs$n
 
             # bs_mod is the blocksize that will contain blocks that have been expanded 
@@ -198,7 +198,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
             
             started_writes <- FALSE
             for (block_num in 1:bs$n) {
-                this_block <- getValues(x, row=bs_mod$row[block_num], 
+                this_block <- raster::getValues(x, row=bs_mod$row[block_num], 
                                         nrows=bs_mod$nrows[block_num],
                                         format='matrix')
                 x_cut <- matrix(findInterval(this_block, seq(min_x, max_x, length.out=(n_grey + 1)),
@@ -231,11 +231,11 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
                     # of layers in out_block, and extent/resolution equal to extent and 
                     # resolution of x
                     if (dim(out_block)[3] == 1) {
-                        textures <- raster(x)
+                        textures <- raster::raster(x)
                     } else {
-                        textures <- brick(stack(rep(c(x), dim(out_block)[3])), values=FALSE)
+                        textures <- raster::brick(stack(rep(c(x), dim(out_block)[3])), values=FALSE)
                     }
-                    textures <- writeStart(textures, filename=rasterTmpFile())
+                    textures <- raster::writeStart(textures, filename=raster::rasterTmpFile())
                     names(textures) <- layer_names
                     started_writes <- TRUE
                 }
@@ -248,16 +248,17 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
                     out_block <- aperm(out_block, c(3, 2, 1))
                     out_block <- matrix(out_block, ncol=nrow(out_block), byrow=TRUE)
                 }
-                textures <- writeValues(textures, out_block, bs$row[block_num])
+                textures <- raster::writeValues(textures, out_block, bs$row[block_num])
             }
-            textures <- writeStop(textures)
+            textures <- raster::writeStop(textures)
         }
         if (!inherits(textures, c('RasterLayer', 'RasterStack', 
                                   'RasterBrick'))) {
             if (dim(textures)[3] > 1) {
-                textures <- stack(apply(textures, 3, raster, template=x))
+                textures <- raster::stack(apply(textures, 3, raster::raster, 
+                                                template=x))
             } else {
-                textures <- raster(textures[, , 1], template=x)
+                textures <- raster::raster(textures[, , 1], template=x)
             }
         }
         names(textures) <- paste('glcm', statistics, sep='_')
