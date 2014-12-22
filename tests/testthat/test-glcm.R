@@ -176,3 +176,6 @@ test_that("glcm on 5x7 window with 2x3 shift works", {
                  expected=getValues(expected_textures_5x7_2x3$correlation),
                  tolerance=.000001)
 })
+
+# Test that the rotationally invariant results match what is obtained by 
+# manually running glcm for multiple shifts:
