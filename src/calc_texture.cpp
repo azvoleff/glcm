@@ -37,7 +37,7 @@ double text_contrast(mat pij, mat imat, mat jmat, double mean_haralick, double E
 
 double text_dissimilarity(mat pij, mat imat, mat jmat, double mean_haralick, double ENVI_mean) {
     //TODO: Find source for dissimilarity
-    return(accu(pij % abs(imat - jmat)));
+    return(accu(pij % arma::abs(imat - jmat)));
 }
 
 double text_entropy(mat pij, mat imat, mat jmat, double mean_haralick, double ENVI_mean) {
@@ -125,16 +125,16 @@ arma::cube calc_texture(arma::mat rast,
     // for each shift, as row, column with zero based indices.
     for(unsigned n=0; n < shift.n_rows; n++) {
         if (shift(n, 0) < 0) {
-            base_ul(n, 0) = base_ul(n, 0) + abs(shift(n, 0));
+            base_ul(n, 0) = base_ul(n, 0) + std::abs(shift(n, 0));
         }
         if (shift(n, 1) < 0) {
-            base_ul(n, 1) = base_ul(n, 1) + abs(shift(n, 1));
+            base_ul(n, 1) = base_ul(n, 1) + std::abs(shift(n, 1));
         }
         offset_ul.row(n) = base_ul.row(n) + shift.row(n);
         center_coord.row(n) = base_ul.row(n) + floor(window_dims / 2);
         // lr_coord gives the maximum lower right coordinate included in 
         // the combined area of the offset and base windows
-        lr_coord.row(n) = window_dims + abs(shift.row(n)) - 1;
+        lr_coord.row(n) = window_dims + arma::abs(shift.row(n)) - 1;
     }
 
     // Make base_ul and offset_ul relative to center_coord of 0, 0
