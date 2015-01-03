@@ -1,7 +1,7 @@
 Package: glcm
-Version: 1.2
-Date: 2015-1-2
-Title: Calculate textures from grey-level co-occurrence matrices (GLCMs) in R
+Version: 1.3
+Date: 2015-1-3
+Title: Calculate Textures from Grey-Level Co-occurrence Matrices (GLCMs)
 Authors@R: person("Alex", "Zvoleff", email="azvoleff@conservation.org",
     role=c("aut", "cre"))
 Maintainer: Alex Zvoleff <azvoleff@conservation.org>
