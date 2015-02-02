@@ -242,7 +242,7 @@ arma::cube calc_texture(arma::mat rast,
                     textures_temp(i, shift_num) = (*f)(pij, imat, jmat, mean_haralick, ENVI_mean);
                 }
             }
-            // Average the statistics and across the shifts
+            // Average the statistics across the shifts
             for(signed i=0; i < statistics.size(); i++) {
                 textures(ctr_x, ctr_y, i) = mean(textures_temp.row(i));
             }
