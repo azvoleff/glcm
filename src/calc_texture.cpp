@@ -168,7 +168,10 @@ arma::cube calc_texture(arma::mat rast,
     // Rcpp::Rcout << "ctr_x_limit: " << (rast.n_rows - max(lr_coord.col(0))) << std::endl;
     // Rcpp::Rcout << "ctr_y_limit: " << (rast.n_cols - max(lr_coord.col(1))) << std::endl;
     for(unsigned ctr_x=max(center_coord.col(0)); ctr_x < (rast.n_rows - max(lr_coord.col(0))); ctr_x++) {
+        // Rcpp::Rcout << "**********" << std::endl;
+        // Rcpp::Rcout << "ctr_x: " << ctr_x << std::endl;
         for(unsigned ctr_y=max(center_coord.col(1)); ctr_y < (rast.n_cols - max(lr_coord.col(1))); ctr_y++) {
+            // Rcpp::Rcout << "ctr_y: " << ctr_y << std::endl;
             for(unsigned shift_num=0; shift_num < shift.n_rows; shift_num++) {
                 // // Debugging code for tracking the upper left corner coordinate 
                 // // of base and offset matrices
@@ -283,8 +286,11 @@ arma::cube calc_texture(arma::mat rast,
     }
 
     // Fill nan values on bottom border
+    // lr_coord.print();
     for(unsigned row=(rast.n_rows - max(lr_coord.col(0))); row < rast.n_rows; row++) {
+        //Rcpp::Rcout << "row: " << row << std::endl;
         for(unsigned col=0; col < rast.n_cols; col++) {
+            //Rcpp::Rcout << "col: " << col << std::endl;
             for(signed i=0; i < statistics.size(); i++) {
                 textures(row, col, i) = na_val;
             }
