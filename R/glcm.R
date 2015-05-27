@@ -170,8 +170,16 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         } else {
             edge <- calc_glcm_edge(shift, window)
     
-            bs <- raster::blockSize(x, minrows=(window[1] + edge[1] + edge[2]), 
-                                    minblocks=1)
+            minrows <- window[1] + edge[1] + edge[2]
+            bs <- raster::blockSize(x, minrows=minrows, minblocks=1)
+            # Handle case of very small last blocks by combining the two final 
+            # blocks when the last block is very small
+            if (bs$nrows[length(bs$nrows)] < minrows) {
+                bs$nrows[length(bs$nrows) - 1] <- sum(bs$nrows[(length(bs$nrows) - 1):length(bs$nrows)])
+                bs$nrows <- bs$nrows[-length(bs$nrows)]
+                bs$row <- bs$row[-length(bs$row)]
+                bs$n <- length(bs$row)
+            }
             n_blocks <- bs$n
 
             # bs_mod is the blocksize that will contain blocks that have been expanded 
