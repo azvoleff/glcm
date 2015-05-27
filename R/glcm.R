@@ -135,11 +135,13 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     if (!is.matrix(shift)) {
         shift <- matrix(unlist(shift), ncol=2, byrow=TRUE)
     }
+    min_rast_rows <- window[1] + abs(max(shift[, 1]))
+    min_rast_cols <- window[2] + abs(max(shift[, 2]))
     if ((window[1] %% 2 == 0) || (window[2] %% 2 == 0)) {
         stop('both elements of window must be odd')
-    } else if ((window[1] + abs(max(shift[, 1]))) > nrow(x)) {
+    } else if (min_rast_rows > nrow(x)) {
         stop("window[1] + the maximum x shift value must be less than nrow(x)")
-    } else if ((window[2] + abs(max(shift[, 2]))) > ncol(x)) {
+    } else if (min_rast_cols > ncol(x)) {
         stop("window[2] + the maximum y shift value must be less than ncol(x)")
     } else if (!inherits(statistics, 'character')) {
         stop('statistics must be a character vector')
@@ -155,7 +157,6 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     if (!(na_opt %in% c('any', 'center', 'ignore'))) {
         stop('na_opt must be "any", "center", or "ignore"')
     }
-    # Resample the image to the required number of grey levels
     if (inherits(x, 'RasterLayer')) {
         if (is.null(min_x)) min_x <- raster::cellStats(x, 'min')
         if (is.null(max_x)) max_x <- raster::cellStats(x, 'max')
@@ -170,11 +171,11 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
         } else {
             edge <- calc_glcm_edge(shift, window)
     
-            minrows <- window[1] + edge[1] + edge[2]
-            bs <- raster::blockSize(x, minrows=minrows, minblocks=1)
+            min_block_rows <- window[1] + edge[1] + edge[2]
+            bs <- raster::blockSize(x, minrows=min_block_rows, minblocks=1)
             # Handle case of very small last blocks by combining the two final 
             # blocks when the last block is very small
-            if (bs$nrows[length(bs$nrows)] < minrows) {
+            if ((bs$n > 1) & bs$nrows[length(bs$nrows)] < min_block_rows) {
                 bs$nrows[length(bs$nrows) - 1] <- sum(bs$nrows[(length(bs$nrows) - 1):length(bs$nrows)])
                 bs$nrows <- bs$nrows[-length(bs$nrows)]
                 bs$row <- bs$row[-length(bs$row)]
@@ -185,25 +186,26 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
             # bs_mod is the blocksize that will contain blocks that have been expanded 
             # to avoid edge effects
             bs_mod <- bs
-            if (bs_mod$n > 1) {
+            if (n_blocks > 1) {
                 # Expand blocks to account for edge effects on the top:
                 bs_mod$row[2:n_blocks] <- bs_mod$row[2:n_blocks] - edge[1]
                 # Need to read additional rows from these blocks to avoid an offset
                 bs_mod$nrows[2:n_blocks] <- bs_mod$nrows[2:n_blocks] + edge[1]
-
-                # Read additional bottom rows to account for edge effects on the bottom:
+                # Read more bottom rows to account for bottom edge effects
                 bs_mod$nrows[1:(n_blocks - 1)] <- bs_mod$nrows[1:(n_blocks - 1)] + edge[2]
             }
 
-            # TODO: Need to detect this and fix it automatically
+            # TODO: Should detect this and fix automatically
             if (any(bs_mod$row < 1)) {
-                stop('too many blocks to read without edge effects - try increasing chunksize')
+                stop("underflow: cannot read without edge effects - report to package author")
             } else if (any((bs_mod$nrows + bs_mod$row - 1) > nrow(x))) {
-                stop('too many blocks to read without edge effects - try increasing chunksize')
+                stop("overflow: cannot read without edge effects - report to package author")
+            } else if ((n_blocks > 1) & any(bs_mod$nrows < min_block_rows)) {
+                stop("cannot read without edge effects - report to package author")
             }
             
             started_writes <- FALSE
-            for (block_num in 1:bs$n) {
+            for (block_num in 1:n_blocks) {
                 this_block <- raster::getValues(x, row=bs_mod$row[block_num], 
                                         nrows=bs_mod$nrows[block_num],
                                         format='matrix')
