@@ -54,7 +54,7 @@ texture measures.
 }
 \description{
 This function supports calculating texture statistics derived from
-grey-level co-occurrence matrices (GLCMs) in R. The default textures are
+grey-level co-occurrence matrices (GLCMs). The default textures are
 calculated using a 90 degree shift. See Details for other options.
 }
 \details{

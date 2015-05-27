@@ -20,7 +20,7 @@ calc_glcm_edge <- function(shift, window) {
 #' Image texture measures from grey-level co-occurrence matrices (GLCM)
 #'
 #' This function supports calculating texture statistics derived from 
-#' grey-level co-occurrence matrices (GLCMs) in R. The default textures are 
+#' grey-level co-occurrence matrices (GLCMs). The default textures are 
 #' calculated using a 90 degree shift. See Details for other options.
 #'
 #' The \code{statistics} parameter should be a list, and can include any (one 
