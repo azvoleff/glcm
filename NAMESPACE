@@ -2,4 +2,5 @@
 
 export(glcm)
 import(Rcpp)
+importFrom(utils,stack)
 useDynLib(glcm)
