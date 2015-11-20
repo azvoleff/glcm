@@ -1,27 +1,14 @@
-# Sample .travis.yml for R projects.
-#
-# See README.md for instructions, or for more configuration options,
-# see the wiki:
-#   https://github.com/craigcitro/r-travis/wiki
+language: r
+sudo: required
 
-language: c
-
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_r_binary raster
-  - ./travis-tool.sh install_r_binary testthat devtools httr
-
-install:
-  - ./travis-tool.sh install_deps
-
-script: ./travis-tool.sh run_tests
-
-on_failure:
-  - ./travis-tool.sh dump_logs
+r_binary_install:
+ - testthat
+ - devtools
+ - httr
 
 notifications:
   email:
     on_success: change
     on_failure: change
+
+warnings_are_errors: true
