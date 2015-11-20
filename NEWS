@@ -1,3 +1,9 @@
+glcm 1.4
+========
+* Fix handling of images small enough to process as a single block.
+* Fix case of very small final block.
+* Misc doc fixes and CRAN check fixes.
+
 glcm 1.2
 ========
 * Fix abs usage in C++ code per Proj. Ripley's request.
