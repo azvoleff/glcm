@@ -1,7 +1,18 @@
+glcm 1.6
+========
+* Docs for "glcm" stated that the default direction was 90 degrees.  This is 
+  incorrect - the default is 45 degrees. Fixed docs accordingly.
+
+* Fix error that arose when handling large images due to usage of "stack" from 
+  wrong namespace in "glcm" function. Thanks to Wenjuan Shen, Dennis O. Ojwang',
+  and others for reporting.
+
 glcm 1.4
 ========
 * Fix handling of images small enough to process as a single block.
+
 * Fix case of very small final block.
+
 * Misc doc fixes and CRAN check fixes.
 
 glcm 1.2
@@ -28,13 +39,11 @@ glcm 0.3.2
 
 glcm 0.3.1
 ==========
-
 * Remove RcppArmadillo from imports in glcm.R (only list it in linking-to) per 
   CRAN request.
 
 glcm 0.3
 ========
-
 * Reformat tests for `testthat` >= 0.8.
 
 * Fix handling of window sizes other than 3 x 3 (issue #2).
@@ -52,7 +61,6 @@ glcm 0.3
 
 glcm 0.2
 ========
-
 *  Require Rcpp >= 0.11.0 (as Makevars and Makevars.win are no longer included 
    in package).
 
@@ -60,5 +68,4 @@ glcm 0.2
 
 glcm 0.1
 ========
-
 *  Initial release to CRAN.
