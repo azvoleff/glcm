@@ -55,7 +55,7 @@ texture measures.
 \description{
 This function supports calculating texture statistics derived from 
 grey-level co-occurrence matrices (GLCMs). The default textures are 
-calculated using a 90 degree shift. See Details for other options.
+calculated using a 45 degree shift. See Details for other options.
 }
 \details{
 The \code{statistics} parameter should be a list, and can include any (one 
