@@ -158,6 +158,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
     if (!(na_opt %in% c('any', 'center', 'ignore'))) {
         stop('na_opt must be "any", "center", or "ignore"')
     }
+
     if (inherits(x, 'RasterLayer')) {
         if (is.null(min_x)) min_x <- raster::cellStats(x, 'min')
         if (is.null(max_x)) max_x <- raster::cellStats(x, 'max')
@@ -242,7 +243,7 @@ glcm <- function(x, n_grey=32, window=c(3, 3), shift=c(1, 1),
                     if (dim(out_block)[3] == 1) {
                         textures <- raster::raster(x)
                     } else {
-                        textures <- raster::brick(stack(rep(c(x), dim(out_block)[3])), values=FALSE)
+                        textures <- raster::brick(x, nl=dim(out_block)[3], values=FALSE)
                     }
                     textures <- raster::writeStart(textures, filename=raster::rasterTmpFile())
                     names(textures) <- layer_names
