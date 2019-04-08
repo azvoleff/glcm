@@ -29,9 +29,9 @@ version. Be aware this version might not install as it is not as well tested as
 the stable version.
 
 **NOTE: If you are installing on Windows, you will need to install the 
-appropriate version of [Rtools](http://cran.r-project.org/bin/windows/Rtools/) 
-for your version of R (as `glcm` contains C++ code) before you follow the 
-below steps.**
+appropriate version of [Rtools](https://cran.r-project.org/bin/windows/Rtools/) 
+for your version of R (as `glcm` contains C++ code) before you follow the below 
+steps.**
 
 The easiest way to install the development version of the `glcm` package is 
 using the 
