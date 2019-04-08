@@ -1,7 +1,7 @@
 #' Calculate textures from grey-level co-occurrence matrices (GLCMs) in R
 #'
 #' Enables calculation of image textures derived from grey-level co-occurrence 
-#' matrics (GLCMs) in R. The texture calculation is coded in C++ to optimize 
+#' matrices (GLCMs) in R. The texture calculation is coded in C++ to optimize 
 #' computation time.
 #'
 #' @name glcm-package
