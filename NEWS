@@ -2,6 +2,8 @@ glcm 1.6.2
 ========
 * Update for new r requirement of registration of symbols (added init.c).
 
+* Use https for CRAN urls in docs per CRAN requirements.
+
 glcm 1.6
 ========
 * Docs for "glcm" stated that the default direction was 90 degrees.  This is 
