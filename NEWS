@@ -1,3 +1,7 @@
+glcm 1.6.2
+========
+* Update for new r requirement of registration of symbols (added init.c).
+
 glcm 1.6
 ========
 * Docs for "glcm" stated that the default direction was 90 degrees.  This is 
