@@ -35,4 +35,3 @@ parameter, containing the selected textures measures
 This function is called by the \code{\link{glcm}} function. It is 
 not intended to be used directly.
 }
-

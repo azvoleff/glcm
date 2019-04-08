@@ -13,4 +13,3 @@ computation time.
 Alex Zvoleff, \email{azvoleff@conservation.org}
 }
 \keyword{package}
-

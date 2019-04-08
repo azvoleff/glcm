@@ -8,4 +8,3 @@
 Portion of Landsat 5 Surface Reflectance image from the Landsat Climate Data 
 Record archive. This subset of the image includes only bands 1-4.
 }
-

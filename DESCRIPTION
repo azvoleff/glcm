@@ -21,4 +21,4 @@ URL: http://www.azvoleff.com/glcm
 BugReports: https://github.com/azvoleff/glcm/issues
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1

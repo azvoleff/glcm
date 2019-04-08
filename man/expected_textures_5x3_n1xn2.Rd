@@ -16,4 +16,3 @@ homogeneity, contrast, dissimilarity, entropy, second moment, correlation.
 \code{\link{expected_textures_3x3_1x1}} 
 \code{\link{expected_textures_5x7_2x3}}
 }
-

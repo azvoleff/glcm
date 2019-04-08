@@ -114,4 +114,3 @@ SMC-3:610--621.
 Pratt, W. K. 2007. Digital image processing: PIKS Scientific inside. 4th ed.
 Wiley-Interscience, Hoboken, N.J pages 540--541, 563--566.
 }
-

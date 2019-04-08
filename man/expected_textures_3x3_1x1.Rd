@@ -16,4 +16,3 @@ entropy, second moment, correlation.
 \code{\link{expected_textures_5x7_2x3}} 
 \code{\link{expected_textures_5x3_n1xn2}}
 }
-
