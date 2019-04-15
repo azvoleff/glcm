@@ -25,7 +25,7 @@
 #' @examples
 #' # Calculate GLCM textures on a matrix using low-level calc_texture function
 #' d <- matrix(seq(1:25), nrow=5, ncol=5, byrow=TRUE)
-#' calc_texture(d, n_grey=25, window_dims=c(2,2),
+#' calc_texture(d, n_grey=25, window_dims=c(3,3),
 #'              shift=matrix(c(1,1), nrow=1), statistics=c('variance'),
 #'              na_opt="any", na_val=NA)
 calc_texture <- function(d, n_grey, window_dims, shift, statistics, na_opt, na_val) {
