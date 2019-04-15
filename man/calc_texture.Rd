@@ -35,3 +35,8 @@ parameter, containing the selected textures measures
 This function is called by the \code{\link{glcm}} function. It is 
 not intended to be used directly.
 }
+\examples{
+# Calculate GLCM textures on a matrix using low-level calc_texture function
+d <- matrix(seq(1:25), nrow=5, ncol=5, byrow=TRUE)
+calc_texture(d)
+}

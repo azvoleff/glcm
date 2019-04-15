@@ -86,6 +86,10 @@ double text_correlation(mat pij, mat imat, mat jmat, double mean_haralick, doubl
 //' necessary due to chosen na_opt value
 //' @return a list of length equal to the length of the \code{statistics} input 
 //' parameter, containing the selected textures measures
+//' @examples
+//' # Calculate GLCM textures on a matrix using low-level calc_texture function
+//' d <- matrix(seq(1:25), nrow=5, ncol=5, byrow=TRUE)
+//' calc_texture(d)
 // [[Rcpp::export]]
 arma::cube calc_texture(arma::mat rast,
         int n_grey, arma::rowvec window_dims, arma::mat shift,
