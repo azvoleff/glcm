@@ -101,13 +101,24 @@ calc_glcm_edge <- function(shift, window) {
 #' Pratt, W. K. 2007. Digital image processing: PIKS Scientific inside. 4th ed.
 #' Wiley-Interscience, Hoboken, N.J pages 540--541, 563--566.
 #' @examples
+#' # Calculate GLCM textures on a matrix
+#' d <- matrix(seq(1:25), nrow=5, ncol=5, byrow=TRUE)
+#'
+#' # Calculate using default 90 degree shift
+#' glcm(d, statistics=c('variance'))
+#'
+#' # Calculate over all directions
+#' glcm(d, shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)), 
+#'      statistics=c('variance'))
+#'
 #' \dontrun{
+#' # Calculate GLCM textures on a raster
 #' require(raster)
-#' # Calculate GLCM textures using default 90 degree shift
+#' # Calculate using default 90 degree shift
 #' textures_shift1 <- glcm(raster(L5TSR_1986, layer=1))
 #' plot(textures_shift1)
 #'
-#' # Calculate GLCM textures over all directions
+#' # Calculate over all directions
 #' textures_all_dir <- glcm(raster(L5TSR_1986, layer=1),
 #'                          shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)))
 #' plot(textures_all_dir)
