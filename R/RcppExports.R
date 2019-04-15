@@ -6,6 +6,7 @@
 #' This function is called by the \code{\link{glcm}} function. It is 
 #' not intended to be used directly.
 #'
+#' @export
 #' @param rast a matrix containing the pixels to be used in the texture
 #' calculation
 #' @param n_grey number of grey levels to use in texture calculation
