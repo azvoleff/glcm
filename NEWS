@@ -1,5 +1,15 @@
+glcm 1.6.3
+==========
+* Add doi reference to DESCRIPTION file where methods for package are 
+  referenced.
+
+* Added executable example in glcm.Rd that doesn't require loading the raster 
+  package (which is not required).
+
+* Added an executable example in calc_texture.Rd.
+
 glcm 1.6.2
-========
+==========
 * Update for new r requirement of registration of symbols (added init.c).
 
 * Use https for CRAN urls in docs per CRAN requirements.

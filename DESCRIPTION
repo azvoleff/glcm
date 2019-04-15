@@ -1,6 +1,6 @@
 Package: glcm
-Version: 1.6.2
-Date: 2019-04-08
+Version: 1.6.3
+Date: 2019-04-15
 Title: Calculate Textures from Grey-Level Co-Occurrence Matrices (GLCMs)
 Authors@R: person("Alex", "Zvoleff", email="azvoleff@conservation.org",
     role=c("aut", "cre"))
