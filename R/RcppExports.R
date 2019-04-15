@@ -7,7 +7,7 @@
 #' not intended to be used directly.
 #'
 #' @export
-#' @param rast a matrix containing the pixels to be used in the texture
+#' @param d a matrix containing the pixels to be used in the texture
 #' calculation
 #' @param n_grey number of grey levels to use in texture calculation
 #' @param window_dims 2 element list with row and column dimensions of the
@@ -25,8 +25,10 @@
 #' @examples
 #' # Calculate GLCM textures on a matrix using low-level calc_texture function
 #' d <- matrix(seq(1:25), nrow=5, ncol=5, byrow=TRUE)
-#' calc_texture(d)
-calc_texture <- function(rast, n_grey, window_dims, shift, statistics, na_opt, na_val) {
-    .Call('_glcm_calc_texture', PACKAGE = 'glcm', rast, n_grey, window_dims, shift, statistics, na_opt, na_val)
+#' calc_texture(d, n_grey=25, window_dims=c(2,2),
+#'              shift=matrix(c(1,1), nrow=1), statistics=c('variance'),
+#'              na_opt="any", na_val=NA)
+calc_texture <- function(d, n_grey, window_dims, shift, statistics, na_opt, na_val) {
+    .Call('_glcm_calc_texture', PACKAGE = 'glcm', d, n_grey, window_dims, shift, statistics, na_opt, na_val)
 }
 

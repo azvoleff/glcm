@@ -4,10 +4,10 @@
 \alias{calc_texture}
 \title{Calculates a glcm texture for use in the glcm.R script}
 \usage{
-calc_texture(rast, n_grey, window_dims, shift, statistics, na_opt, na_val)
+calc_texture(d, n_grey, window_dims, shift, statistics, na_opt, na_val)
 }
 \arguments{
-\item{rast}{a matrix containing the pixels to be used in the texture
+\item{d}{a matrix containing the pixels to be used in the texture
 calculation}
 
 \item{n_grey}{number of grey levels to use in texture calculation}
@@ -38,5 +38,7 @@ not intended to be used directly.
 \examples{
 # Calculate GLCM textures on a matrix using low-level calc_texture function
 d <- matrix(seq(1:25), nrow=5, ncol=5, byrow=TRUE)
-calc_texture(d)
+calc_texture(d, n_grey=25, window_dims=c(2,2),
+             shift=matrix(c(1,1), nrow=1), statistics=c('variance'),
+             na_opt="any", na_val=NA)
 }

@@ -7,19 +7,19 @@
 using namespace Rcpp;
 
 // calc_texture
-arma::cube calc_texture(arma::mat rast, int n_grey, arma::rowvec window_dims, arma::mat shift, Rcpp::CharacterVector statistics, std::string na_opt, double na_val);
-RcppExport SEXP _glcm_calc_texture(SEXP rastSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
+arma::cube calc_texture(arma::mat d, int n_grey, arma::rowvec window_dims, arma::mat shift, Rcpp::CharacterVector statistics, std::string na_opt, double na_val);
+RcppExport SEXP _glcm_calc_texture(SEXP dSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type rast(rastSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type d(dSEXP);
     Rcpp::traits::input_parameter< int >::type n_grey(n_greySEXP);
     Rcpp::traits::input_parameter< arma::rowvec >::type window_dims(window_dimsSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type shift(shiftSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type statistics(statisticsSEXP);
     Rcpp::traits::input_parameter< std::string >::type na_opt(na_optSEXP);
     Rcpp::traits::input_parameter< double >::type na_val(na_valSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_texture(rast, n_grey, window_dims, shift, statistics, na_opt, na_val));
+    rcpp_result_gen = Rcpp::wrap(calc_texture(d, n_grey, window_dims, shift, statistics, na_opt, na_val));
     return rcpp_result_gen;
 END_RCPP
 }
