@@ -1,3 +1,8 @@
+glcm 1.6.4
+==========
+* Correct EPSG references to use lower case ('epsg') when defining CRS rather 
+  than upper case.
+
 glcm 1.6.3
 ==========
 * Add doi reference to DESCRIPTION file where methods for package are 
