@@ -1,6 +1,6 @@
 glcm 1.6.5
 ==========
-* Add raster package as a dependency as it is used in tests and several 
+* Add raster package to IMPORTS as it is used in tests and several 
   examples.
 
 glcm 1.6.4
