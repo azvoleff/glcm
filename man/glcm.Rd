@@ -69,11 +69,11 @@ and/or 'correlation'. By default all of the statistics except for
   \item a two element integer vector giving the shift (Q in Gonzalez and 
   Woods, 2008), as (number of rows, number of columns).
 
-\item a list of integer vectors of length 2 specifying multiple (row, col) 
+ \item a list of integer vectors of length 2 specifying multiple (row, col) 
  shifts over which to calculate the GLCM textures. For example:
  \code{shift=list(c(1,1), c(-1,-1))}
 
-\item a matrix with two columns specifying, in rows, multiple (row, col) 
+ \item a matrix with two columns specifying, in rows, multiple (row, col) 
  shifts over which to calculate the GLCM textures. For example:
  \code{shift=matrix(c(1,1,-1,-1), byrow=TRUE, ncol=2)}
 }
