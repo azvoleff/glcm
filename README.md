@@ -48,9 +48,7 @@ install_github('azvoleff/glcm')
 ## Author Contact Information
 
 [Alex Zvoleff](mailto:azvoleff@conservation.org)  
-Postdoctoral Associate  
-Tropical Ecology Assessment and Monitoring (TEAM) Network  
 Conservation International  
-2011 Crystal Dr. Suite 500  
+2011 Crystal Dr. Suite 600  
 Arlington, VA 22202  
 USA
