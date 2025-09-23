@@ -38,9 +38,10 @@ jobs:
           sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-latex-extra
 
       - name: Full R CMD check with latest dependencies
-        uses: r-lib/actions/check-r-package@v2
-        with:
-          args: 'c("--as-cran")'
+        run: |
+          R CMD build . --no-manual
+          R CMD check *.tar.gz --as-cran
+        shell: bash
 
       - name: Notify on failure
         if: failure()

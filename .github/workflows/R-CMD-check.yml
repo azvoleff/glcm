@@ -83,12 +83,15 @@ jobs:
           & "$miktexPath\miktex.exe" packages install letltxmacro
           & "$miktexPath\initexmf.exe" --set-config-value="[MPM]AutoInstall=1"
 
-      - uses: r-lib/actions/check-r-package@v2
-        with:
-          upload-snapshots: false
-          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
-          args: 'c("--no-manual", "--as-cran")'
-          error-on: '"error"'
+      - name: Build package
+        run: |
+          R CMD build . --no-manual --compact-vignettes=gs+qpdf
+        shell: bash
+
+      - name: Check package
+        run: |
+          R CMD check *.tar.gz --no-manual --as-cran
+        shell: bash
 
       - name: Show testthat output
         if: always()
@@ -119,5 +122,4 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: |
             *.Rcheck/
-            check/
-            **/testthat.Rout*
+            *.tar.gz
