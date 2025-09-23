@@ -1,6 +1,8 @@
 # glcm
 
-[![Build Status](https://travis-ci.org/azvoleff/glcm.png)](https://travis-ci.org/azvoleff/glcm)
+[![R-CMD-check](https://github.com/azvoleff/glcm/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/azvoleff/glcm/actions/workflows/R-CMD-check.yml)
+[![CI](https://github.com/azvoleff/glcm/actions/workflows/test-coverage.yml/badge.svg)](https://github.com/azvoleff/glcm/actions/workflows/test-coverage.yml)
+[![Armadillo Compatibility](https://github.com/azvoleff/glcm/actions/workflows/armadillo-compat.yml/badge.svg)](https://github.com/azvoleff/glcm/actions/workflows/armadillo-compat.yml)
 
 ## Overview
 

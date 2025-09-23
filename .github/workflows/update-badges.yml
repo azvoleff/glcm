@@ -1,0 +1,27 @@
+# Create and update package status badges
+on:
+  workflow_run:
+    workflows: ["R-CMD-check", "CI"]
+    types: [completed]
+
+name: Update-badges
+
+permissions:
+  contents: write
+
+jobs:
+  update-badges:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Update README badges
+        run: |
+          # This is a placeholder for badge updates
+          # You can add actual badge update logic here if needed
+          echo "Badges can be manually added to README.md"
+          echo "R-CMD-check status: https://github.com/${{ github.repository }}/actions/workflows/R-CMD-check.yml/badge.svg"
+          echo "CI status: https://github.com/${{ github.repository }}/actions/workflows/test-coverage.yml/badge.svg"
