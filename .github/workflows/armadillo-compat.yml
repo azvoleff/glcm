@@ -65,4 +65,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: armadillo-check-results
-          path: "*.Rcheck/"
+          path: |
+            *.Rcheck/
+            *.tar.gz

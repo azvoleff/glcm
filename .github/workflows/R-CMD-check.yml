@@ -67,23 +67,49 @@ jobs:
 
       - name: Install LaTeX on Windows
         if: runner.os == 'Windows'
+        shell: powershell
         run: |
+          # Install MiKTeX
           choco install miktex -y
-          refreshenv
-          miktex packages install letltxmacro
-          initexmf --set-config-value=[MPM]AutoInstall=1
+          
+          # Add MiKTeX to PATH for subsequent steps
+          $miktexPath = "C:\Program Files\MiKTeX\miktex\bin\x64"
+          echo $miktexPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          
+          # Update PATH for current session
+          $env:PATH = "$env:PATH;$miktexPath"
+          
+          # Install required packages and configure auto-install
+          & "$miktexPath\miktex.exe" packages install letltxmacro
+          & "$miktexPath\initexmf.exe" --set-config-value="[MPM]AutoInstall=1"
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          upload-snapshots: true
+          upload-snapshots: false
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
           args: 'c("--no-manual", "--as-cran")'
+          error-on: '"error"'
 
       - name: Show testthat output
         if: always()
         run: |
           ## --------------------------------------------------------------------
-          find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
+          echo "Looking for testthat output files..."
+          find . -name 'testthat.Rout*' -type f 2>/dev/null | head -10 | while read file; do
+            echo "=== $file ==="
+            cat "$file"
+            echo ""
+          done || echo "No testthat.Rout files found"
+          
+          echo "Looking in check directories..."
+          find . -name '*.Rcheck' -type d 2>/dev/null | while read dir; do
+            echo "=== Checking $dir ==="
+            find "$dir" -name 'testthat.Rout*' -type f 2>/dev/null | while read file; do
+              echo "--- $file ---"
+              cat "$file"
+              echo ""
+            done
+          done || echo "No .Rcheck directories found"
         shell: bash
 
       - name: Upload check results
@@ -91,4 +117,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          path: |
+            *.Rcheck/
+            check/
+            **/testthat.Rout*

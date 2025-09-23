@@ -39,8 +39,7 @@ jobs:
         run: |
           covr::codecov(
             quiet = FALSE,
-            clean = FALSE,
-            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+            clean = FALSE
           )
         shell: Rscript {0}
 
@@ -48,7 +47,8 @@ jobs:
         if: always()
         run: |
           ## --------------------------------------------------------------------
-          find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
+          find . -name 'testthat.Rout*' -exec cat '{}' \; || true
+          find . -name '*.Rcheck' -type d -exec find {} -name 'testthat.Rout*' -exec cat {} \; \; || true
         shell: bash
 
       - name: Upload test results
@@ -56,7 +56,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-test-failures
-          path: ${{ runner.temp }}/package
+          path: |
+            *.Rcheck/
+            check/
 
   lint:
     runs-on: ubuntu-latest
