@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // calc_texture
 arma::cube calc_texture(arma::mat d, int n_grey, arma::rowvec window_dims, arma::mat shift, Rcpp::CharacterVector statistics, std::string na_opt, double na_val);
 RcppExport SEXP _glcm_calc_texture(SEXP dSEXP, SEXP n_greySEXP, SEXP window_dimsSEXP, SEXP shiftSEXP, SEXP statisticsSEXP, SEXP na_optSEXP, SEXP na_valSEXP) {
