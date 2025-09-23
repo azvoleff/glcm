@@ -4,12 +4,10 @@
 #' matrices (GLCMs) in R. The texture calculation is coded in C++ to optimize 
 #' computation time.
 #'
-#' @name glcm-package
-#' @docType package
 #' @author Alex Zvoleff, \email{azvoleff@@conservation.org}
-#' @keywords package
+#' @keywords internal
 #' @useDynLib glcm
-NULL
+"_PACKAGE"
 #' Landsat 5 Surface Reflectance Image from February 6, 1986 (path 15, row 53)
 #' 
 #' Portion of Landsat 5 Surface Reflectance image from the Landsat Climate Data 

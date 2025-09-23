@@ -9,7 +9,15 @@ Enables calculation of image textures derived from grey-level co-occurrence
 matrices (GLCMs) in R. The texture calculation is coded in C++ to optimize 
 computation time.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/azvoleff/glcm}
+  \item Report bugs at \url{https://github.com/azvoleff/glcm/issues}
+}
+
+}
 \author{
 Alex Zvoleff, \email{azvoleff@conservation.org}
 }
-\keyword{package}
+\keyword{internal}
