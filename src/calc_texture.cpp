@@ -1,4 +1,5 @@
 #include <RcppArmadillo.h>
+#include <cmath>
 using namespace arma;
 
 // Define a pointer to a texture function that will be used to map selected 
@@ -206,7 +207,7 @@ arma::cube calc_texture(arma::mat d,
                     // any NA values within the base_window or the offset_window
                     bool na_flag=false;
                     for(unsigned i=0; i < base_window.n_elem; i++) {
-                        if ((!arma::is_finite(base_window(i))) || (!arma::is_finite(offset_window(i)))) {
+                        if ((!std::isfinite(base_window(i))) || (!std::isfinite(offset_window(i)))) {
                             for(signed s=0; s < statistics.size(); s++) {
                                 textures_temp(s, shift_num) = na_val;
                             }
@@ -218,7 +219,7 @@ arma::cube calc_texture(arma::mat d,
                 } else if (na_opt == "center") {
                     // Return NA for all textures within this window if the center 
                     // value is an NA
-                    if (!arma::is_finite(base_window(center_coord(0), center_coord(1)))) {
+                    if (!std::isfinite(base_window(center_coord(0), center_coord(1)))) {
                         for(signed s=0; s < statistics.size(); s++) {
                             textures_temp(s, shift_num) = na_val;
                         }
@@ -227,7 +228,7 @@ arma::cube calc_texture(arma::mat d,
                 }
 
                 for(unsigned i=0; i < base_window.n_elem; i++) {
-                    if (!(arma::is_finite(base_window(i)) || arma::is_finite(offset_window(i)))) {
+                    if (!(std::isfinite(base_window(i)) || std::isfinite(offset_window(i)))) {
                         // This will execute only if there is an NA in the window 
                         // AND na_opt is set to "ignore" or "center"
                         continue;

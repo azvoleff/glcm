@@ -1,7 +1,8 @@
 Package: glcm
-Version: 1.6.5
-Date: 2020-02-26
+Version: 1.6.6
+Date: 2025-09-23
 Title: Calculate Textures from Grey-Level Co-Occurrence Matrices (GLCMs)
+Author: Alex Zvoleff
 Authors@R: person("Alex", "Zvoleff", email="azvoleff@conservation.org",
     role=c("aut", "cre"))
 Maintainer: Alex Zvoleff <azvoleff@conservation.org>
@@ -17,7 +18,7 @@ Description: Enables calculation of image textures (Haralick 1973)
     <doi:10.1109/TSMC.1973.4309314> from grey-level co-occurrence matrices 
     (GLCMs). Supports processing images that cannot fit in memory.
 License: GPL (>= 3)
-URL: http://www.azvoleff.com/glcm
+URL: https://github.com/azvoleff/glcm
 BugReports: https://github.com/azvoleff/glcm/issues
 LazyData: true
 Encoding: UTF-8

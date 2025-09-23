@@ -1,4 +1,11 @@
-# Function to calculate edge for glcm when processing block by block
+#' Calculate edge for GLCM when processing block by block
+#' 
+#' This is an internal function used to calculate edges for GLCM processing.
+#' 
+#' @param shift shift parameter for GLCM calculation
+#' @param window window parameter for GLCM calculation
+#' @return vector of edge values
+#' @keywords internal
 calc_glcm_edge <- function(shift, window) {
     if ((length(shift) == 2) && is.numeric(shift)) shift <- list(shift)
     if ((!(is.vector(shift) && all(lapply(shift, length) == 2)) &&
