@@ -6,7 +6,7 @@ Authors@R: person("Alex", "Zvoleff", email="azvoleff@conservation.org",
     role=c("aut", "cre"))
 Maintainer: Alex Zvoleff <azvoleff@conservation.org>
 Depends:
-    R (>= 2.10.0),
+    R (>= 3.5.0),
 Imports:
     raster,
     Rcpp (>= 0.11.0)

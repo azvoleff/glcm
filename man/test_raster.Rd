@@ -12,6 +12,6 @@ Used in testing the output from the GLCM texture statistics C++ code.
 require(raster)
 set.seed(0)
 test_matrix <- matrix(runif(100)*32, nrow=10)
-test_raster <- raster(test_matrix, crs='+init=epsg:4326')
+test_raster <- raster(test_matrix, crs='EPSG:4326')
 test_raster <- cut(test_raster, seq(0, 32))
 }

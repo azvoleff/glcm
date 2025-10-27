@@ -5,8 +5,8 @@
 \alias{glcm-package}
 \title{Calculate textures from grey-level co-occurrence matrices (GLCMs) in R}
 \description{
-Enables calculation of image textures derived from grey-level co-occurrence 
-matrices (GLCMs) in R. The texture calculation is coded in C++ to optimize 
+Enables calculation of image textures derived from grey-level co-occurrence
+matrices (GLCMs) in R. The texture calculation is coded in C++ to optimize
 computation time.
 }
 \seealso{

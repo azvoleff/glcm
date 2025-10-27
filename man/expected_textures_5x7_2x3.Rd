@@ -5,14 +5,14 @@
 \alias{expected_textures_5x7_2x3}
 \title{GLCM textures calculated in EXELIS ENVI (for testing purposes)}
 \description{
-This is the output from running a "co-occurrence measures" calculation to 
-calculate GLCM textures in EXELIS ENVI from the \code{test_raster} included 
-in the \code{glcm} package. The following settings were used: window size 
-5x7; co-occurrence shift 2 rows (y in ENVI), 3 columns (x in ENVI); 
-greyscale textures to compute: mean, variance, homogeneity, contrast, 
+This is the output from running a "co-occurrence measures" calculation to
+calculate GLCM textures in EXELIS ENVI from the \code{test_raster} included
+in the \code{glcm} package. The following settings were used: window size
+5x7; co-occurrence shift 2 rows (y in ENVI), 3 columns (x in ENVI);
+greyscale textures to compute: mean, variance, homogeneity, contrast,
 dissimilarity, entropy, second moment, correlation.
 }
 \seealso{
-\code{\link{expected_textures_3x3_1x1}} 
+\code{\link{expected_textures_3x3_1x1}}
 \code{\link{expected_textures_5x3_n1xn2}}
 }
