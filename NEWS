@@ -1,3 +1,7 @@
+glcm 1.6.6
+==========
+* Fixes to account for recent RcppCArmadillo upgrade to Armadillo 15
+
 glcm 1.6.5
 ==========
 * Add raster package to IMPORTS as it is used in tests and several 
