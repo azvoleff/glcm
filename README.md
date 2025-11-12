@@ -6,7 +6,7 @@
 ## Overview
 
 The `glcm` package enables calculating image textures derived from grey-level
-co-occurrence matrics (GLCMs) in R. The texture calculation is coded in C++
+co-occurrence matrices (GLCMs) in R. The texture calculation is coded in C++
 to optimize computation time. The `glcm` function in the package can compute 
 the following texture statistics: mean (using either of two definitions), 
 variance (using either of two definitions), homogeneity, contrast, 
